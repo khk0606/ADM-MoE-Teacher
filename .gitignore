@@ -1,0 +1,92 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and local configuration
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+*.local
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*~
+
+# Credentials and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+
+# Datasets, body models, generated metadata, and Unity exports
+data/
+body_models/
+_data_metadata/
+unity_exports/
+**/dense_contact_v*/
+**/motion_index.json
+**/scene_manifest*.json
+
+# Model weights and numeric payloads
+/outputs/
+/checkpoints/
+/ckpt/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.npy
+*.npz
+*.pkl
+*.pickle
+
+# Raw or generated motion payloads
+motions/
+motion_data/
+*_combined_chair_local.txt
+*_room*_chair*.txt
+
+# Experiment output and caches
+/experiments/
+/wandb/
+/runs/
+/logs/
+/tensorboard/
+/eval/
+/save/
+**/summary.json
+**/preflight.json
+**/report.json
+
+# Generated media and archives
+*.mp4
+*.avi
+*.mov
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.part.*
+*.sha256
+
+# Unity-generated directories (source files under unity/ remain tracked)
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+UserSettings/

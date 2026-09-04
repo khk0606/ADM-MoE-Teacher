@@ -33,26 +33,17 @@ CUDA runtime: 11.3
 
 ADM inference requires `CUDA available: True`. If an import fails, reactivate the `afford` environment and rerun step 1 before continuing.
 
-### 3. Download the external data and checkpoints
+### 3. Prepare only the five ADM test assets
 
-The following files are **not uploaded to this GitHub repository**. The checked-out `main` branch contains none of the paths below, and `.gitignore` excludes `data/`, `body_models/`, `outputs/`, `*.pt`, and `*.npz`. The tree below is therefore the required **local layout after downloading the assets**, not content supplied by `git clone`.
-
-The base ADM/CMDM implementation comes from the official [afford-motion repository](https://github.com/afford-motion/afford-motion). Its README provides the official OneDrive/Baidu links for preprocessed datasets and pretrained models.
-
-Download the upstream assets and preserve their internal directory names. The full upstream layout shown in the original project is:
+Do **not** clone the original `afford-motion` repository again. This repository already contains the ADM source code. The novel-scene affordance-map test needs only the five asset groups below in this exact local layout:
 
 ```text
 ADM-MoE-Teacher/
-├── body_models/
-│   └── smplx/
-│       └── SMPLX_NEUTRAL.npz
 ├── data/
 │   ├── custom/
-│   ├── eval/
-│   ├── H3D/
-│   ├── HUMANISE/
-│   ├── HumanML3D/
-│   ├── PROX/
+│   │   ├── anno.csv
+│   │   └── points/
+│   │       └── *.npz
 │   ├── POINTTRANS_C_N8192_E300/
 │   │   └── model.pth
 │   └── Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
@@ -62,15 +53,55 @@ ADM-MoE-Teacher/
             └── model300000.pt
 ```
 
-For the novel-scene ADM test in the next step, these are the directly required paths:
+`body_models/smplx/SMPLX_NEUTRAL.npz`, `data/eval/`, `data/H3D/`, `data/HUMANISE/`, `data/HumanML3D/`, and `data/PROX/` are **not required** for this ADM affordance-map test.
+
+These five asset groups are not currently stored in this Git repository. Prepare them as follows.
+
+#### 3.1 Open the official Afford-Motion downloads
+
+Open the official [Afford-Motion Data Preparation section](https://github.com/afford-motion/afford-motion#data-preparation). It provides two kinds of downloads:
+
+- **preprocessed data:** contains `custom`, the PointTransformer weight, and the normalization statistics;
+- **pre-trained models:** contains `CDM-Perceiver-ALL`, the ADM checkpoint used for novel-scene evaluation.
+
+The OneDrive and Baidu links are mirrors; using one of them is sufficient. You do not need to clone the Afford-Motion source repository because the required source code is already included here.
+
+#### 3.2 Download or extract only the required assets
+
+From the preprocessed-data download, keep only:
 
 ```text
 data/custom/anno.csv
-data/custom/points/*.npz
+data/custom/points/
 data/POINTTRANS_C_N8192_E300/model.pth
 data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
+```
+
+From the pre-trained-model download, keep only:
+
+```text
 outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
 ```
+
+If the download service provides one large archive, extract it into a temporary folder. You may delete the H3D, HUMANISE, HumanML3D, PROX, AMDM/CMDM, and body-model files after copying the five required asset groups.
+
+#### 3.3 Copy the assets into this repository
+
+Assume the downloaded archive was extracted to `/absolute/path/to/extracted/afford-motion-assets`. Run these commands from the `ADM-MoE-Teacher` repository root, changing only `ASSET_ROOT`:
+
+```bash
+ASSET_ROOT=/absolute/path/to/extracted/afford-motion-assets
+mkdir -p data/custom/points data/POINTTRANS_C_N8192_E300 outputs/CDM-Perceiver-ALL/ckpt
+cp "$ASSET_ROOT/data/custom/anno.csv" data/custom/anno.csv
+cp -a "$ASSET_ROOT/data/custom/points/." data/custom/points/
+cp "$ASSET_ROOT/data/POINTTRANS_C_N8192_E300/model.pth" data/POINTTRANS_C_N8192_E300/model.pth
+cp "$ASSET_ROOT/data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz" data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
+cp "$ASSET_ROOT/outputs/CDM-Perceiver-ALL/ckpt/model300000.pt" outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
+```
+
+If you manually downloaded the preprocessed data and pretrained models into different folders, copy the same five paths individually into the destination layout shown above.
+
+#### 3.4 Check the completed layout
 
 Check all required ADM test assets at once:
 
@@ -78,7 +109,13 @@ Check all required ADM test assets at once:
 python -c "from pathlib import Path; required=['data/custom/anno.csv','data/POINTTRANS_C_N8192_E300/model.pth','data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz','outputs/CDM-Perceiver-ALL/ckpt/model300000.pt']; missing=[p for p in required if not Path(p).is_file()]; missing += [] if list(Path('data/custom/points').glob('*.npz')) else ['data/custom/points/*.npz']; print('READY' if not missing else 'MISSING:\n'+'\n'.join(missing)); raise SystemExit(bool(missing))"
 ```
 
-Do not commit these downloaded assets to Git. Keep their original licenses and use them only under the terms provided by their respective authors.
+`READY` means every required path exists. Then confirm that a scene point file contains the expected 8192-point array:
+
+```bash
+python -c "from pathlib import Path; import numpy as np; p=sorted(Path('data/custom/points').glob('*.npz'))[0]; a=np.load(p,allow_pickle=False)['points']; print('sample:',p); print('points shape:',a.shape); assert a.ndim==2 and a.shape[0]==8192 and a.shape[1]>=6"
+```
+
+Keep all downloaded assets under their original licenses. Do not redistribute a dataset or checkpoint unless its license or author explicitly permits redistribution.
 
 See [Data and checkpoints](docs/DATA_AND_CHECKPOINTS.md) for integrity and licensing notes.
 

@@ -111,7 +111,7 @@ follow [Teacher experiment history](docs/TEACHER_EXPERIMENT_HISTORY.md). If the
 required v10.1 evidence already exists, run this from the repository root:
 
 ```bash
-bash teacher_lora_v102_dense_instance_patch/run_training.sh
+bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_training.sh
 ```
 
 The run performs supervised LoRA training and evaluates the shortlisted
@@ -148,7 +148,7 @@ rollout metrics, v5 retention, and the no-checkpoint-on-failure policy.
 ### 3-5 Visualize the Teacher affordance maps with Viser
 
 ```bash
-bash teacher_lora_v102_dense_instance_patch/run_viewer.sh
+bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_viewer.sh
 ```
 
 The viewer provides controls for:

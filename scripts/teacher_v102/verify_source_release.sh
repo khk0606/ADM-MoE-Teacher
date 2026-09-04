@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd -P)"
 cd "$ROOT"
+PACKAGE_ROOT="research_history/teacher_lora_packages"
 
 required_files=(
   prepare/fewshot_cdm_common.py
@@ -32,10 +33,10 @@ required_files=(
   prepare/visualize_relational_teacher_v102_dense_instance_viser.py
   prepare/export_relational_teacher_v102_public_bundle.py
   prepare/visualize_relational_teacher_v102_public_viser.py
-  teacher_lora_v10_supervised_capacity_patch/run_training.sh
-  teacher_lora_v101_fullfield_supervision_patch/run_training.sh
-  teacher_lora_v102_dense_instance_patch/run_training.sh
-  teacher_lora_v102_dense_instance_patch/run_viewer.sh
+  "$PACKAGE_ROOT/teacher_lora_v10_supervised_capacity_patch/run_training.sh"
+  "$PACKAGE_ROOT/teacher_lora_v101_fullfield_supervision_patch/run_training.sh"
+  "$PACKAGE_ROOT/teacher_lora_v102_dense_instance_patch/run_training.sh"
+  "$PACKAGE_ROOT/teacher_lora_v102_dense_instance_patch/run_viewer.sh"
   docs/TEACHER_EXPERIMENT_HISTORY.md
   docs/results/teacher_v102/metrics_public.json
   docs/assets/teacher_v102/teacher_v102_step1000_room0101_watch_generation0.png
@@ -54,19 +55,19 @@ if [[ "$missing" -ne 0 ]]; then
 fi
 echo "[PASS] runnable Teacher-v10.2 source inventory"
 
-package_count=$(find . -maxdepth 1 -type d \( -name 'teacher_lora_v9*_patch' -o -name 'teacher_lora_v10*_patch' \) | wc -l | tr -d ' ')
+package_count=$(find "$PACKAGE_ROOT" -mindepth 1 -maxdepth 1 -type d \( -name 'teacher_lora_v9*_patch' -o -name 'teacher_lora_v10*_patch' \) | wc -l | tr -d ' ')
 if [[ "$package_count" -ne 34 ]]; then
   echo "[FAIL] expected 34 Teacher-v9-v10.3.1 packages; found $package_count"
   exit 1
 fi
 echo "[PASS] 34 versioned Teacher source packages"
 
-python teacher_lora_v10_supervised_capacity_patch/prepare/validate_teacher_lora_v10_supervised_capacity_package.py
-python teacher_lora_v101_fullfield_supervision_patch/prepare/validate_teacher_lora_v101_fullfield_package.py
-python teacher_lora_v102_dense_instance_patch/prepare/validate_teacher_lora_v102_dense_instance_package.py
-python teacher_lora_v103_onpolicy_response_patch/prepare/validate_teacher_lora_v103_onpolicy_response_package.py
-python teacher_lora_v1031_onpolicy_calibration6_patch/prepare/validate_teacher_lora_v1031_onpolicy_calibration6_package.py
-python teacher_lora_v1031_affordance_viewer_patch/prepare/validate_teacher_lora_v1031_affordance_viewer_package.py
+python "$PACKAGE_ROOT/teacher_lora_v10_supervised_capacity_patch/prepare/validate_teacher_lora_v10_supervised_capacity_package.py"
+python "$PACKAGE_ROOT/teacher_lora_v101_fullfield_supervision_patch/prepare/validate_teacher_lora_v101_fullfield_package.py"
+python "$PACKAGE_ROOT/teacher_lora_v102_dense_instance_patch/prepare/validate_teacher_lora_v102_dense_instance_package.py"
+python "$PACKAGE_ROOT/teacher_lora_v103_onpolicy_response_patch/prepare/validate_teacher_lora_v103_onpolicy_response_package.py"
+python "$PACKAGE_ROOT/teacher_lora_v1031_onpolicy_calibration6_patch/prepare/validate_teacher_lora_v1031_onpolicy_calibration6_package.py"
+python "$PACKAGE_ROOT/teacher_lora_v1031_affordance_viewer_patch/prepare/validate_teacher_lora_v1031_affordance_viewer_package.py"
 
 python -m py_compile \
   prepare/relational_teacher_v9_all_sittable_contract.py \

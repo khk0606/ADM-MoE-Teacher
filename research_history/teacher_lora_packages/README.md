@@ -1,0 +1,57 @@
+# Versioned Teacher-LoRA packages
+
+These 34 directories are immutable source-delivery snapshots from Teacher-v9
+through Teacher-v10.3.1. They are retained for reproducibility and audit history.
+The current runnable dependency chain is flattened into the repository-level
+`prepare/` directory.
+
+## Package inventory
+
+```text
+teacher_lora_v9_all_sittable_patch/
+teacher_lora_v9_all_sittable_preflight_patch/
+teacher_lora_v9_all_sittable_overfit_patch/
+teacher_lora_v91_all_sittable_loss_patch/
+teacher_lora_v91_corrected_overfit_patch/
+teacher_lora_v92_hotspot_trust_patch/
+teacher_lora_v92_validator_fix_patch/
+teacher_lora_v93_exact_topk_patch/
+teacher_lora_v94_common_descent_patch/
+teacher_lora_v941_metric_replication_patch/
+teacher_lora_v95_multitimestep_consensus_patch/
+teacher_lora_v96_object_balanced_consensus_patch/
+teacher_lora_v96_affordance_viewer_patch/
+teacher_lora_v97_early_rollout_k3_patch/
+teacher_lora_v98_rollout_state_preflight_patch/
+teacher_lora_v981_rollout_state_response6_patch/
+teacher_lora_v982_rollout_state_calibration6_patch/
+teacher_lora_v983_preservation_direction_preflight_patch/
+teacher_lora_v984_preservation_calibration6_patch/
+teacher_lora_v985_two_scene_step4_preflight_patch/
+teacher_lora_v986_cross_scene_direction_diagnosis_patch/
+teacher_lora_v987_two_scene_radius_response_patch/
+teacher_lora_v988_rollout_aligned_direction_patch/
+teacher_lora_v989_rollout_aligned_radius_patch/
+teacher_lora_v9810_rollout_aligned_recovery_patch/
+teacher_lora_v9811_rollout_aligned_replication_patch/
+teacher_lora_v9812_two_scene_multiupdate_calibration_patch/
+teacher_lora_v9812_affordance_viewer_patch/
+teacher_lora_v10_supervised_capacity_patch/
+teacher_lora_v101_fullfield_supervision_patch/
+teacher_lora_v102_dense_instance_patch/
+teacher_lora_v103_onpolicy_response_patch/
+teacher_lora_v1031_onpolicy_calibration6_patch/
+teacher_lora_v1031_affordance_viewer_patch/
+```
+
+## Retained v10.2 commands
+
+Run from the repository root:
+
+```bash
+bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_training.sh
+bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_viewer.sh
+```
+
+Teacher-v10.2 is a retained visual candidate. Its strict actual-K3 gate failed,
+so the package intentionally does not contain or authorize a final checkpoint.

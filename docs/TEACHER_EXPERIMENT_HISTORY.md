@@ -1,10 +1,10 @@
 # Teacher-LoRA experiment history
 
 This document indexes the versioned Teacher source included in this repository.
-Each `teacher_lora_*_patch/` directory is an immutable source delivery containing
-its run entry point, contract, validator, tests, and package manifest. The flat
-`prepare/` directory contains the combined dependency chain needed by the latest
-included experiments.
+Each directory under `research_history/teacher_lora_packages/` is an immutable
+source delivery containing its run entry point, contract, validator, tests, and
+package manifest. The flat `prepare/` directory contains the combined dependency
+chain needed by the latest included experiments.
 
 ## Milestones
 
@@ -27,42 +27,22 @@ The repository includes every Teacher package from the v9-v10.3.1 chain,
 including validator fixes and visualization packages. The final visual candidate
 uses these primary packages:
 
+They are grouped under one archive directory so the repository root exposes the
+runnable code instead of 34 delivery folders:
+
 ```text
-teacher_lora_v9_all_sittable_patch/
-teacher_lora_v9_all_sittable_preflight_patch/
-teacher_lora_v9_all_sittable_overfit_patch/
-teacher_lora_v91_all_sittable_loss_patch/
-teacher_lora_v91_corrected_overfit_patch/
-teacher_lora_v92_hotspot_trust_patch/
-teacher_lora_v92_validator_fix_patch/
-teacher_lora_v93_exact_topk_patch/
-teacher_lora_v94_common_descent_patch/
-teacher_lora_v941_metric_replication_patch/
-teacher_lora_v95_multitimestep_consensus_patch/
-teacher_lora_v96_object_balanced_consensus_patch/
-teacher_lora_v96_affordance_viewer_patch/
-teacher_lora_v97_early_rollout_k3_patch/
-teacher_lora_v98_rollout_state_preflight_patch/
-teacher_lora_v981_rollout_state_response6_patch/
-teacher_lora_v982_rollout_state_calibration6_patch/
-teacher_lora_v983_preservation_direction_preflight_patch/
-teacher_lora_v984_preservation_calibration6_patch/
-teacher_lora_v985_two_scene_step4_preflight_patch/
-teacher_lora_v986_cross_scene_direction_diagnosis_patch/
-teacher_lora_v987_two_scene_radius_response_patch/
-teacher_lora_v988_rollout_aligned_direction_patch/
-teacher_lora_v989_rollout_aligned_radius_patch/
-teacher_lora_v9810_rollout_aligned_recovery_patch/
-teacher_lora_v9811_rollout_aligned_replication_patch/
-teacher_lora_v9812_two_scene_multiupdate_calibration_patch/
-teacher_lora_v9812_affordance_viewer_patch/
-teacher_lora_v10_supervised_capacity_patch/
-teacher_lora_v101_fullfield_supervision_patch/
-teacher_lora_v102_dense_instance_patch/
-teacher_lora_v103_onpolicy_response_patch/
-teacher_lora_v1031_onpolicy_calibration6_patch/
-teacher_lora_v1031_affordance_viewer_patch/
+research_history/
+└── teacher_lora_packages/
+    ├── teacher_lora_v9_all_sittable_patch/
+    ├── ...
+    ├── teacher_lora_v102_dense_instance_patch/
+    ├── teacher_lora_v103_onpolicy_response_patch/
+    ├── teacher_lora_v1031_onpolicy_calibration6_patch/
+    └── teacher_lora_v1031_affordance_viewer_patch/
 ```
+
+The complete package list is documented in
+`research_history/teacher_lora_packages/README.md`.
 
 ## Reproduction order
 
@@ -74,9 +54,9 @@ and output directory.
 For the retained v10.2 result, the final three supervised stages are:
 
 ```bash
-bash teacher_lora_v10_supervised_capacity_patch/run_training.sh
-bash teacher_lora_v101_fullfield_supervision_patch/run_training.sh
-bash teacher_lora_v102_dense_instance_patch/run_training.sh
+bash research_history/teacher_lora_packages/teacher_lora_v10_supervised_capacity_patch/run_training.sh
+bash research_history/teacher_lora_packages/teacher_lora_v101_fullfield_supervision_patch/run_training.sh
+bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_training.sh
 ```
 
 The first command also requires the sealed v9.8.12 summary. To reproduce from

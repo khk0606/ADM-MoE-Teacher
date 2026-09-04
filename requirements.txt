@@ -18,3 +18,4 @@ tqdm==4.65.0
 smplkit==0.0.3
 opencv-python==4.8.0.74
 scikit-learn==1.2.2
+viser==1.0.30

@@ -1,0 +1,39 @@
+{
+  "schema": "teacher_lora_v91_corrected_one_scene_overfit_package_v1",
+  "status": "PACKAGE_PASS",
+  "authorization": {
+    "corrected_one_scene_overfit": true,
+    "maximum_optimizer_updates": 120,
+    "checkpoint_export": false,
+    "fresh_response3_after_validated_pass": true,
+    "calibration": false,
+    "long_training": false,
+    "room_0102_array_access": false,
+    "room_0201_array_access": false,
+    "paper_test_access": false
+  },
+  "source_model": "sealed_v5r4_teacher_plus_fresh_zero_init_lora",
+  "selected_loss_candidate": "support2_rank025_preserve2",
+  "train_scene": "room_0101",
+  "metadata_only_scenes": [
+    "room_0102",
+    "room_0201"
+  ],
+  "teacher_forward_inputs": [
+    "c_pc_feat",
+    "c_pc_xyz",
+    "c_text"
+  ],
+  "selection_policy": "maximize_worst_topk_then_recall_then_minimize_worst_mae_then_earliest_else_final_diagnostic",
+  "files_sha256": {
+    "README.md": "a988f7a7765fffa8b9a847f7411487074d19e08d397f171a5c4c5c4808254305",
+    "TEACHER_V91_CORRECTED_ONE_SCENE_OVERFIT_RUNBOOK.md": "538ffad71d9169eba1ed4d87955e7af3a3f39f9ff2643e65f1052d60ea8a405c",
+    "prepare/relational_teacher_v91_active_support_objective.py": "154f1ad28af05703ba5a3d9a525e66887592dbefdf0d33da9a45836a896c4879",
+    "prepare/relational_teacher_v91_corrected_overfit_contract.py": "eb8a5c3907c2ed3db6be42f48fd5b4975f6b252243691694036f323d75d196f6",
+    "prepare/relational_teacher_v91_loss_response_contract.py": "84b38aa797dfbec089775947019709aadca024c362f13b534898a90a1fc9730e",
+    "prepare/run_relational_teacher_v91_corrected_one_scene_overfit.py": "1675aaa3dfa64edfd14c6507ba8577cf814ed1b0aeb0f7232c95c94c009d6f04",
+    "prepare/test_relational_teacher_v91_corrected_overfit_contract.py": "f8aeb96819e078d342b748ace3ee1d1aa5635985dee2df1323aa38302d55364a",
+    "prepare/validate_relational_teacher_v91_corrected_one_scene_overfit.py": "e513e1eee71a63099245fe978a4f0d35b79eb197b0ce3549d1b3f21a172d70be",
+    "prepare/validate_teacher_lora_v91_corrected_overfit_package.py": "83a7b83dbac4d09b5dd184c60e286a639bb880f7d9c7838f1267a824bb7a2e4d"
+  }
+}

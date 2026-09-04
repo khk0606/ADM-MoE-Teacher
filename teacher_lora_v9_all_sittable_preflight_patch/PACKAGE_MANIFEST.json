@@ -1,0 +1,44 @@
+{
+  "schema": "teacher_lora_v9_all_sittable_cuda_preflight_package_v3",
+  "status": "PACKAGE_PASS",
+  "authorization": {
+    "cuda_preflight": true,
+    "one_scene_overfit_after_validated_pass": true,
+    "optimizer_updates_in_this_package": 0,
+    "response3": false,
+    "calibration": false,
+    "long_training": false,
+    "development_array_access": false,
+    "paper_test_access": false
+  },
+  "source_model": "sealed_v5r4_teacher_plus_fresh_zero_init_lora",
+  "forbidden_candidate_sources": [
+    "teacher_v7",
+    "teacher_v7_1",
+    "teacher_v8_specialist",
+    "teacher_v8_late_union"
+  ],
+  "teacher_forward_inputs": [
+    "c_pc_feat",
+    "c_pc_xyz",
+    "c_text"
+  ],
+  "primary_loss": "equal_macro_of_bed_normal_chair_high_chair",
+  "role_policy": {
+    "positive": "verified_bed_normal_chair_high_chair",
+    "unknown": "unverified_chair_or_bed_ignored",
+    "explicit_negative": "tv_desk_whiteboard_only",
+    "environment": "bounded_auxiliary_only"
+  },
+  "files_sha256": {
+    "README.md": "8f3e7652fdfd9731a6fc0bd230f8a7de66219c85a82b8b8e2ae070f0a50fd8c6",
+    "TEACHER_V9_ALL_SITTABLE_LORA_PREFLIGHT_RUNBOOK.md": "c57eab3fdfea196a58ebb9e392cfcbe76d8a10336c796c2c6157085b5044ebdb",
+    "prepare/preflight_relational_teacher_v9_all_sittable_lora.py": "721317adf898c05eedf37e6416c5b6997a8457f1daa19dfbc803e4c435fda6ab",
+    "prepare/relational_teacher_v9_lora_objective.py": "193d302cddd4b30554ff5e3e781182de360c03165a81a4e76bfdf96c958d6a69",
+    "prepare/relational_teacher_v9_lora_preflight_contract.py": "d958218c42fe3df7924f816edc34780bb66fc2d7be5e811de453f7cca5ceb344",
+    "prepare/relational_teacher_v9_lora_runtime.py": "ccde8bee18dc73f75ac11377a976c9603181d758fa41e3451aa8fccdb52f34af",
+    "prepare/test_relational_teacher_v9_lora_preflight_contract.py": "68282585f30eb6790182c95cdc07d1af2d9659cda3b79378ac356c04b85a3687",
+    "prepare/validate_relational_teacher_v9_all_sittable_lora_preflight.py": "f204b4c7e150a98e3b8a37c15c74ce72a40a0560f50f604dfb1050efd0c1f2c6",
+    "prepare/validate_teacher_lora_v9_preflight_package.py": "0a1ce31aa3253d5024f0ec967e341ef6bea8c01e15a7cbd3f38b9504f5eb0cd8"
+  }
+}

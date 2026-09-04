@@ -1,0 +1,23 @@
+{
+  "schema": "teacher_lora_v95_multitimestep_consensus_package_v1",
+  "files": {
+    "README.md": "32a6fdb4e2dfe49ce64e2b5d4bb98da81b51004dd922026054c686dee60517aa",
+    "TEACHER_V95_MULTITIMESTEP_CONSENSUS_RUNBOOK.md": "602ef21dcf8b9377af64f0573f36c8c1647e3de9d3f111b28b066a2b6308e893",
+    "prepare/preflight_relational_teacher_v95_multitimestep_consensus.py": "92f6ac0f5bef9774b4f5640f0f715f46e26757e28fca2dde3f1587a8a8c15c2e",
+    "prepare/relational_teacher_v95_multitimestep_consensus_contract.py": "b97148cf417737e66f6ae16f49775c6f52dae66c8c7d8157d53d946337b6af41",
+    "prepare/test_relational_teacher_v95_multitimestep_consensus_contract.py": "59f6569000e9fa503ffd3c3b869ecd92621f04523b11401e6bcacc95eb8e8f1b",
+    "prepare/validate_relational_teacher_v95_multitimestep_consensus.py": "f27201149cf4fb723243112a8ab6af5eb0761ae62ad08862a720234b5bb2ad58",
+    "prepare/validate_teacher_lora_v95_multitimestep_consensus_package.py": "77ba9929fa88bbab63bf46563f36ea84e6024ff7db1fa3502fab05045be0229a"
+  },
+  "authorization": {
+    "consensus_response6_on_pass": true,
+    "checkpoint_write": false,
+    "rollout": false,
+    "overfit120": false,
+    "calibration": false,
+    "long_training": false,
+    "room_0102_arrays": false,
+    "room_0201_arrays": false,
+    "paper_test": false
+  }
+}

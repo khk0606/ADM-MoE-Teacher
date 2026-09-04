@@ -1,0 +1,29 @@
+{
+  "schema": "teacher_lora_v9811_rollout_aligned_replication_package_v1",
+  "authorization": {
+    "sealed_v9810_pass_selected_radius_0p006_input": true,
+    "sealed_v988_pass_input": true,
+    "fresh_v5r4_exact_step4_reconstruction": true,
+    "selected_direction_exact_recomputation": true,
+    "disjoint_replication_seed_table": true,
+    "room0101_arrays": true,
+    "room0102_arrays": true,
+    "actual_two_scene_k3_new_seed_replication": true,
+    "optimizer_creation": false,
+    "checkpoint_write": false,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "long_training": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "c205813a44c6a8a524f7cab3d42bde957601157b19a915dfe68641fdb11a7f3b",
+    "TEACHER_V9811_ROLLOUT_ALIGNED_REPLICATION_RUNBOOK.md": "abc944a9efea039ab3694673522acd987c39dab51fd3ae76d35f8a11c56f93ae",
+    "prepare/evaluate_relational_teacher_v9811_rollout_aligned_replication.py": "324a54080b0c50ae91be508047c4b5d745d18bcf466cb9b4723634a87bc1de5f",
+    "prepare/relational_teacher_v9811_rollout_aligned_replication_contract.py": "ab6bba79ae7153bcefd20856a6dadd3aabbbc423af867eb8ab36b4b336fe48f0",
+    "prepare/summarize_relational_teacher_v9811_rollout_aligned_replication.py": "837682f48d9ff80ee7882ac6aa3fb7da8762324a6136a216fc39d3a7a19ae746",
+    "prepare/test_relational_teacher_v9811_rollout_aligned_replication_contract.py": "66846b545111f96aaf55e728774f7f8faec3108fcdddc3bf70828567389d389b",
+    "prepare/validate_relational_teacher_v9811_rollout_aligned_replication.py": "09ce3d00c47be9374ff8742f46d5c4bff2035ad371c656a8d47dc4dbc6bae04a",
+    "prepare/validate_teacher_lora_v9811_rollout_aligned_replication_package.py": "99857f093f77f515aac38d916a3ea17806eaef20913fb18363e686129ba0a2df"
+  }
+}

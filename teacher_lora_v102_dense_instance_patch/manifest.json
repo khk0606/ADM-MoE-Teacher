@@ -1,0 +1,31 @@
+{
+  "schema": "teacher_lora_v102_dense_instance_package_v1",
+  "authorization": {
+    "sealed_v101_failure_input": true,
+    "fresh_v5r4_zero_output_lora": true,
+    "room0101_arrays": true,
+    "room0102_arrays": true,
+    "full_dense_instance_support_equal_macro": true,
+    "all_positive_support_excluded_from_hard_negatives": true,
+    "unknown_sittable_points_ignored": true,
+    "reduced_background_penalty": true,
+    "v5_replay_from_step_one": true,
+    "actual_two_scene_k3_selection": true,
+    "checkpoint_only_after_actual_pass": true,
+    "room_0201_arrays": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "b496af06d20235635346f133a326e3d5cf9d1e0c7f98ea8ff9379d49ccc2b040",
+    "prepare/relational_teacher_v102_dense_instance_contract.py": "d7f2b452816f089ff1cc8662baff0d41fd04d7bc2b0f7c945650f310c89877fe",
+    "prepare/relational_teacher_v102_dense_instance_objective.py": "1f3a93fee02e22b246d0008b65f8a4daab6ca7346f63d941fdd65832dba4e5ab",
+    "prepare/run_relational_teacher_v102_dense_instance_supervision.py": "a95f57e7d57dc1f451a239719fed0525ada410d4dd8ea2094180eb8cb0ffc272",
+    "prepare/summarize_relational_teacher_v102_dense_instance_supervision.py": "4735de6da0fb5d415eccc2a739d3ebc48c1f63501d8972281fea4b0923626edf",
+    "prepare/test_relational_teacher_v102_dense_instance_contract.py": "f68e39d04484f97b76a6764eb65f611ec90f8d6e1ef52db9fe4edc1aa9b36692",
+    "prepare/validate_relational_teacher_v102_dense_instance_supervision.py": "fb2644145b01b080dc567087479ef886d742275d0f5ca6bf7c6192e56aad65ab",
+    "prepare/validate_teacher_lora_v102_dense_instance_package.py": "df020df505ff018da2b99f6e46b660d094690222d012cae534c59582169ab089",
+    "prepare/visualize_relational_teacher_v102_dense_instance_viser.py": "0d2db01766daae4e7cf2655a810c5afe20c5b867fe607c894063230cd707b4c3",
+    "run_training.sh": "12fb49e15f452494739a2632b9da1094a5ab48bb63a361df155f635cdd4a6cc2",
+    "run_viewer.sh": "816125566ddc5241947da8d0880ea7829c3e095087397fd8af660c0e1e5e1213"
+  }
+}

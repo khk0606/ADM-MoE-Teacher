@@ -14,6 +14,16 @@ git grep -nE 'BEGIN (RSA|OPENSSH|EC) PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9
 
 The two `git grep` commands should print nothing. The large-file check should also print nothing.
 
+For the Teacher-v9-v10.3.1 source release, also run:
+
+```bash
+bash scripts/teacher_v102/verify_source_release.sh
+```
+
+This checks the runnable v10.2 dependency chain, versioned package directories,
+package manifests, Python syntax, forbidden numeric/checkpoint payloads, large
+files, and machine-local path leakage.
+
 Review the staged file list, then commit and push:
 
 ```bash

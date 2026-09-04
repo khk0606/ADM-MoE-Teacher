@@ -1,0 +1,24 @@
+{
+  "schema": "teacher_lora_v981_rollout_state_response6_package_v1",
+  "files": {
+    "README.md": "d8781f76054f2422ade7de943185cc467b948d1aefc2048fc03a5b534fbaae7b",
+    "TEACHER_V981_ROLLOUT_STATE_RESPONSE6_RUNBOOK.md": "48b15d340543901f4012e2fce113ee648860f74d6c015f4aea070c2a18763a6f",
+    "prepare/evaluate_relational_teacher_v981_rollout_state_response6.py": "44e0a4f4a4f5acd1eb15c5125d3a0f81fcaa21b5c23e5f9c8be7571baed299cd",
+    "prepare/relational_teacher_v981_rollout_state_response6_contract.py": "f7f99ef587d653bc74cfaa8a27cba4a36b5604cc183eacb8c2248d92cffd4591",
+    "prepare/summarize_relational_teacher_v981_rollout_state_response6.py": "f3edcf6c96e061a93f9a1ddc3e98ab1efe4322e18bad9b1681102f04ce7a0c50",
+    "prepare/test_relational_teacher_v981_rollout_state_response6_contract.py": "f7b5a2d40027179149f2fb1c48f650c948fa9a96e309ba3f7395a36c7e5b0b84",
+    "prepare/validate_relational_teacher_v981_rollout_state_response6.py": "b5e3c1d02db310e798d5b18de2b823079634be715088e000aa0220496616f150",
+    "prepare/validate_teacher_lora_v981_rollout_state_response6_package.py": "18ea032ea1e6a0c4b11be49c6f64f47cde40869db18f0e6d6d2203e712188865"
+  },
+  "authorization": {
+    "sealed_v98_selected_response_input": true,
+    "room_0101_selected_t50_k3_response": true,
+    "optimizer_creation": false,
+    "checkpoint_write": false,
+    "room_0102_arrays": false,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "long_training": false,
+    "paper_test": false
+  }
+}

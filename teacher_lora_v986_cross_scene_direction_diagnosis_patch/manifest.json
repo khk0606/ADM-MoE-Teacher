@@ -1,0 +1,27 @@
+{
+  "schema": "teacher_lora_v986_cross_scene_direction_package_v2",
+  "authorization": {
+    "sealed_v985_fail_input": true,
+    "fresh_v5r4_exact_step4_reconstruction": true,
+    "room0101_arrays": true,
+    "room0102_arrays": true,
+    "nineteen_task_gradient_geometry": true,
+    "candidate_parameter_update": false,
+    "optimizer_creation": false,
+    "checkpoint_write": false,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "long_training": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "7027f3b0ee0b937bdee240f1f7e6641c3c051d1595846674c2e2e900c1be052f",
+    "TEACHER_V986_CROSS_SCENE_DIRECTION_RUNBOOK.md": "9072cbb8b9dd284c5a400555cec170551fb431307fe021707736c5fda4d11e29",
+    "prepare/preflight_relational_teacher_v986_cross_scene_direction.py": "8df1b47a58ef5f5171e30f78f7386b3c1a546d6b5201513d41ff69163d24cf23",
+    "prepare/relational_teacher_v986_cross_scene_direction_contract.py": "9a9d6565f60747e6d7af72ce5479442f582e2ca8c04d742d6ea2fdead3a53018",
+    "prepare/summarize_relational_teacher_v986_cross_scene_direction.py": "42c122afbe19f371e192a7bee17e0681a456c37cfd74175c6d58afa84e44dd6a",
+    "prepare/test_relational_teacher_v986_cross_scene_direction_contract.py": "1e5c506dc9c6a89930e40c8b74000ae9e9f3e4b58610c7805dc6cab2f7f9882e",
+    "prepare/validate_relational_teacher_v986_cross_scene_direction.py": "cfbf2a010fe9564a14ee8f65c14299487f41b614e83e064ac1ad098ec26e7e9d",
+    "prepare/validate_teacher_lora_v986_cross_scene_direction_package.py": "c3b9db2d3a56c571d8546fbdc41a3d3468af4f3bd8b6231411c504f530cff823"
+  }
+}

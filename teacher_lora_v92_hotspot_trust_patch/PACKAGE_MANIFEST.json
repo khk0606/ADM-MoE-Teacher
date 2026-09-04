@@ -1,0 +1,42 @@
+{
+  "schema": "teacher_lora_v92_hotspot_trust_package_v1",
+  "status": "PACKAGE_PASS",
+  "source_model": "sealed_v5r4_teacher_plus_fresh_zero_init_lora",
+  "train_scene": "room_0101",
+  "teacher_forward_inputs": [
+    "c_pc_feat",
+    "c_pc_xyz",
+    "c_text"
+  ],
+  "corrected_losses": [
+    "weak_active_support",
+    "conservative_hotspot_margin",
+    "within_object_listwise_ordering",
+    "absolute_explicit_negative",
+    "background_base_trust",
+    "prompt_and_v5_preservation"
+  ],
+  "authorization": {
+    "response_grid": true,
+    "candidates": 3,
+    "updates_per_candidate": 6,
+    "checkpoint_export": false,
+    "early_rollout_after_validated_pass": true,
+    "overfit120": false,
+    "calibration": false,
+    "long_training": false,
+    "room_0102_array_access": false,
+    "room_0201_array_access": false,
+    "paper_test_access": false
+  },
+  "files_sha256": {
+    "README.md": "1d591d0613ee5b0023615a1965646d8eeb3943ae4e02cb6ca3bde8c7b12d7712",
+    "TEACHER_V92_HOTSPOT_TRUST_RUNBOOK.md": "c4e2c72beeea36a5c418ad5fd9d9328cacbc2321c29aa0624ea83aeb68909b03",
+    "prepare/preflight_relational_teacher_v92_hotspot_trust.py": "06cffca65acb677ce9d4a39acffc20910fd44e16b2e0870cc40bb67e2587dec9",
+    "prepare/relational_teacher_v92_hotspot_trust_contract.py": "bef94b9253e06760baf818bc09513e848ae387e51d168d5c20bf136f952cba5a",
+    "prepare/relational_teacher_v92_hotspot_trust_objective.py": "70bf477adfc646ba6bc82cdcfab0ff5ea39413881efb82183426a341ada6ffab",
+    "prepare/test_relational_teacher_v92_hotspot_trust_contract.py": "abab10eadb77c4dcacfb3dce442d33c9428261ccca0dfd02922c83cffda9da33",
+    "prepare/validate_relational_teacher_v92_hotspot_trust.py": "f002f77e41eb1f9b701939f851cb07bed8acf37578a595d0339f2143495d5168",
+    "prepare/validate_teacher_lora_v92_hotspot_trust_package.py": "d53c4feb3775b4fb2a5979b2f63a40dc08ed8417c5b6021b97c2dfd9dedbdeb5"
+  }
+}

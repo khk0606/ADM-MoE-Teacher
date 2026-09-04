@@ -1,0 +1,24 @@
+{
+  "schema": "teacher_lora_v9812_affordance_viewer_package_v1",
+  "authorization": {
+    "saved_room0101_maps": true,
+    "saved_room0102_maps": true,
+    "all_sittable_and_per_object_gt": true,
+    "start_and_six_updates": true,
+    "continuous_xy_display_interpolation": true,
+    "model_load": false,
+    "diffusion": false,
+    "optimizer": false,
+    "checkpoint_write": false,
+    "room_0201_arrays": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "c1ad4f7e4bb8e4749b700ab0d2bee79a1721dcef84e029adce89717990f055f8",
+    "prepare/relational_teacher_v9812_affordance_viewer_common.py": "320d6593895b69492d12ebc34cdb5094293c744b19253f79caa4c2ebc9c71213",
+    "prepare/test_relational_teacher_v9812_affordance_viewer_common.py": "a795cccc5ff71c5bd400ff08b25f9ab016d2799b56795a57b183604e495595e0",
+    "prepare/validate_teacher_lora_v9812_affordance_viewer_package.py": "429903a3c5479f7babaf27ed7e67b87d49e864149caa09d109daeb21d2ca3b0f",
+    "prepare/visualize_relational_teacher_v9812_affordance_viser.py": "9bd15e6e1047a8a228b95ac6273b0b43ae8a3d4714e31f3aca7c2f6468cb223d",
+    "run_viewer.sh": "8006df5ae27d48331449f1576f8fe33e835ca97ccc7fb712e90b175c0cd7dbc5"
+  }
+}

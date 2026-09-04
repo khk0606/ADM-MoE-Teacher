@@ -1,0 +1,19 @@
+{
+  "schema": "teacher_lora_v92_validator_fix_package_v1",
+  "status": "PACKAGE_PASS",
+  "changes": [
+    "cpu_cuda_reduction_tolerance",
+    "read_only_failure_summary"
+  ],
+  "rerun_cuda": false,
+  "changes_model_result": false,
+  "authorizes_training": false,
+  "files_sha256": {
+    "README.md": "39bf851dbdadfde8b11669dc477031cbe8a40689f5af18013023293971e8dd37",
+    "TEACHER_V92_VALIDATOR_FIX_RUNBOOK.md": "366ac826e282513ddbeb458c8e495b42907e9ae48f161a234301cbd5ab048fe0",
+    "prepare/summarize_relational_teacher_v92_hotspot_trust.py": "c7a900e23606dffac507cfc8d656c9f7cf61ea01ce4b48cad8fd049831f9d01b",
+    "prepare/test_relational_teacher_v92_validator_fix.py": "e2a7ff3db4a022fa93ea4d69618d02b0e8f39b720547bb0dd94160d19346942d",
+    "prepare/validate_relational_teacher_v92_hotspot_trust_v2.py": "74e6bd2445e2ded618fdcc899d0faf3cd1f94ee5930b9326fb4ed8930ef1cd7b",
+    "prepare/validate_teacher_lora_v92_validator_fix_package.py": "2f90762592fe94c3355cbf632393e94dca646076f77eb9e9e5c01bda4fd75e87"
+  }
+}

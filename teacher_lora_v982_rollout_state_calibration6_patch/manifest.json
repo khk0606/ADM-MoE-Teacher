@@ -1,0 +1,25 @@
+{
+  "schema": "teacher_lora_v982_rollout_state_calibration6_package_v1",
+  "files": {
+    "README.md": "71b6e634e68ef08d7a6cbf084517e953fbd4f6136a700350cafe9cdb1875c20d",
+    "TEACHER_V982_ROLLOUT_STATE_CALIBRATION6_RUNBOOK.md": "fe7932cccbbe39126b7bc38bb623c2a91cc1fffdc90c41addbde6c92ceb4b9c5",
+    "prepare/relational_teacher_v982_rollout_state_calibration6_contract.py": "47aa7d7fa5b6ff486163f07d9ed7bc0974ce4d62df8fb01da46105bc06147a5b",
+    "prepare/run_relational_teacher_v982_rollout_state_calibration6.py": "5ca3a6e038435d33f98e4fd33abd30900dccab645c57e579586191c8999b5b9f",
+    "prepare/summarize_relational_teacher_v982_rollout_state_calibration6.py": "bd1cc019c91936294c9b4067bae20c2b1f458f1d5733c7e8033f159dbe8cfd23",
+    "prepare/test_relational_teacher_v982_rollout_state_calibration6_contract.py": "51f50bb4befcb3657c6916d69cd4ec0e1d2f456feb0803bf3d6c0d1edf29d661",
+    "prepare/validate_relational_teacher_v982_rollout_state_calibration6.py": "03cb1088ed43f14df5adbccbc6da3e8989b0b6fe032c5ff489f5e3ab5b003b52",
+    "prepare/validate_teacher_lora_v982_rollout_state_calibration6_package.py": "28328823fe35325b09d4fbd89823f27d7cd7206231d13f1e14c53c15a8fda3ba"
+  },
+  "authorization": {
+    "sealed_v981_pass_input": true,
+    "fresh_v5r4_room0101_calibration_updates": 6,
+    "actual_k3_monitor_after_each_update": true,
+    "optimizer_creation": false,
+    "checkpoint_write": false,
+    "room_0102_arrays": false,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "long_training": false,
+    "paper_test": false
+  }
+}

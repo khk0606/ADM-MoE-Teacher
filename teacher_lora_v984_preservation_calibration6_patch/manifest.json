@@ -1,0 +1,27 @@
+{
+  "schema": "teacher_lora_v984_preservation_calibration6_package_v1",
+  "files": {
+    "README.md": "541c0b9cb63278f28b83e3abcdb11e69a56c8834f4ffe174ad52820c8276c1ea",
+    "TEACHER_V984_PRESERVATION_CALIBRATION6_RUNBOOK.md": "387a09b7df2dd898c3759eae36bb4408b0e61d81055e3c9ef9294d8c23acf5a2",
+    "prepare/relational_teacher_v984_preservation_calibration6_contract.py": "0ae88776b8e1f066662391faa14160b05b8d1989d931def98a5f0e30cfc48100",
+    "prepare/run_relational_teacher_v984_preservation_calibration6.py": "031c5ff20cdbe638d1d2c4207c4aa5962176149a7effc5931184f3fb86fd2928",
+    "prepare/summarize_relational_teacher_v984_preservation_calibration6.py": "0a7f5757838d0aae9d5fb4b5a5e06ece911adf311756c54b8b1ae5964ea5840f",
+    "prepare/test_relational_teacher_v984_preservation_calibration6_contract.py": "3744c1008446aae3228994cd65d73632f18689618bac7cca165e4021648ceb71",
+    "prepare/validate_relational_teacher_v984_preservation_calibration6.py": "c8469b796740fa393c8e4a532fda07f136333f7865fa21e5a8f7475e075f4007",
+    "prepare/validate_teacher_lora_v984_preservation_calibration6_package.py": "47498ad2baad31fc3c1375ef0d2eb3b2fa0aff775fcde97847928131ae9dd70d"
+  },
+  "authorization": {
+    "sealed_v983_pass_input": true,
+    "fresh_v5r4_updates": 6,
+    "exact_update1_update2_reproduction": true,
+    "actual_k3_two_prompt_monitor_after_each_update": true,
+    "eleven_task_preservation_from_update2": true,
+    "optimizer_creation": false,
+    "checkpoint_write": false,
+    "room_0102_arrays": false,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "long_training": false,
+    "paper_test": false
+  }
+}

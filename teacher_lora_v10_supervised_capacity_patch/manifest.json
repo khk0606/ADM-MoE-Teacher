@@ -1,0 +1,32 @@
+{
+  "schema": "teacher_lora_v10_supervised_capacity_package_v1",
+  "authorization": {
+    "sealed_v9812_failure_input": true,
+    "fresh_v5r4_zero_output_lora": true,
+    "room0101_arrays": true,
+    "room0102_arrays": true,
+    "direct_x0_q_sample_supervision": true,
+    "full_timestep_curriculum": true,
+    "adamw_optimizer": true,
+    "actual_two_scene_k3_selection": true,
+    "checkpoint_only_after_actual_pass": true,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "bc1b5f7fc8f958f4a4fa9f31964b88724aa6e2ad96e981c4e6f04bcf8d69d4b9",
+    "prepare/relational_teacher_v10_affordance_viewer_common.py": "955c6be3d35eff44acf7a82e20e9a40317d37e6943a6edde07dd248546c74ec6",
+    "prepare/relational_teacher_v10_supervised_capacity_contract.py": "610d1b908971a0f26a7cdbbac874c4829f734997a1ac856983a7d84a422001d1",
+    "prepare/relational_teacher_v10_supervised_objective.py": "93bde0514d38fec8fdbe1f2b30293759f1cd4a5c93b3e806d1facfc0ce065465",
+    "prepare/run_relational_teacher_v10_supervised_capacity.py": "f2f0123eca220e58dd3bafb5bded3174415315280beba778f393c1879a3f853f",
+    "prepare/summarize_relational_teacher_v10_supervised_capacity.py": "9a58c35cba7c91ad81997396ea4343fa92956e920ae8e3724e88fc816aa805a0",
+    "prepare/test_relational_teacher_v10_affordance_viewer_common.py": "64c69d1bc5a090b9d8f2fc4bcd59bc0e49a1bd78cea3fa707571004a11d6ff91",
+    "prepare/test_relational_teacher_v10_supervised_capacity_contract.py": "fdab39cba06252bc60c56c065fe260fdcee0ccbfc09761efe571f89e22702804",
+    "prepare/validate_relational_teacher_v10_supervised_capacity.py": "02ebf8fb195fffa5f9bbcf23f0d1f51336bfdebedb81908408ed9b8938250b91",
+    "prepare/validate_teacher_lora_v10_supervised_capacity_package.py": "3624e9a1deb3ca493a240c1e90bca73648deefa1bd4d755dd421e35a8717eda0",
+    "prepare/visualize_relational_teacher_v10_supervised_capacity_viser.py": "b0c6b00697ec1b785725cefb0d91df857cb5c30f53f446f9b3ccd31cea398b2a",
+    "run_training.sh": "1298475a7606f0dd9d8b397fc93e36f9e04db9fab74803301cad410a34eda4ff",
+    "run_viewer.sh": "5bc6abaf656e1c451d3747ebd9ff39c53a0f18a799eff7faebf8dbcb37f7b576"
+  }
+}

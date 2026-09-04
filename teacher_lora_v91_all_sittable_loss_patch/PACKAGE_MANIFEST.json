@@ -1,0 +1,43 @@
+{
+  "schema": "teacher_lora_v91_all_sittable_loss_response_package_v1",
+  "status": "PACKAGE_PASS",
+  "authorization": {
+    "loss_response_grid": true,
+    "candidates": 3,
+    "updates_per_candidate": 3,
+    "checkpoint_export": false,
+    "corrected_overfit_after_validated_pass": true,
+    "response3": false,
+    "calibration": false,
+    "long_training": false,
+    "room_0102_array_access": false,
+    "room_0201_array_access": false,
+    "paper_test_access": false
+  },
+  "source_model": "sealed_v5r4_teacher_plus_fresh_zero_init_lora",
+  "failed_state_use": "hash_checked_diagnostic_evidence_only",
+  "train_scene": "room_0101",
+  "metadata_only_scenes": [
+    "room_0102",
+    "room_0201"
+  ],
+  "teacher_forward_inputs": [
+    "c_pc_feat",
+    "c_pc_xyz",
+    "c_text"
+  ],
+  "corrected_losses": [
+    "active_support_equal_macro",
+    "within_object_hotspot_ranking"
+  ],
+  "files_sha256": {
+    "README.md": "a822c84f19d5707cfaf9c01488e8acb3d7aa7f004c4e0348cf937a6d9abb601c",
+    "TEACHER_V91_ALL_SITTABLE_LOSS_RESPONSE_RUNBOOK.md": "cc6ecc9392cc7744650f9b04ebed6356c89fb03108e9e8a5db277f7c516a7a15",
+    "prepare/preflight_relational_teacher_v91_loss_response.py": "52127c6f9484666bb76d71398a024fc33111fc5d703741c27be3106cd06793a7",
+    "prepare/relational_teacher_v91_active_support_objective.py": "154f1ad28af05703ba5a3d9a525e66887592dbefdf0d33da9a45836a896c4879",
+    "prepare/relational_teacher_v91_loss_response_contract.py": "84b38aa797dfbec089775947019709aadca024c362f13b534898a90a1fc9730e",
+    "prepare/test_relational_teacher_v91_loss_response_contract.py": "ccc3880e8eb38b0ca880813480946a0cd5b830faff6b7c81a8d22228ff9b1c7d",
+    "prepare/validate_relational_teacher_v91_loss_response.py": "dc1f7c6aab6cb901b7bde574f2518a59d582b3ddb58b9d39b7878d092b66ad97",
+    "prepare/validate_teacher_lora_v91_loss_response_package.py": "7dd9fefdad2a55c055b4bd9592520fb1379c5baa5afad5655538ad154661fcc7"
+  }
+}

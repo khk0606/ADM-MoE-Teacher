@@ -1,0 +1,23 @@
+{
+  "schema": "teacher_lora_v941_metric_replication_package_v1",
+  "files": {
+    "README.md": "7bec9b5d8c7c07465f3bc194ef5af3551c33d0e54f47beeab32a3a885b02c852",
+    "TEACHER_V941_METRIC_REPLICATION_RUNBOOK.md": "e9dd59012352fb5e4633867ce7c63d1b9eefd64316ad6d494783feb59d5afafc",
+    "prepare/evaluate_relational_teacher_v941_metric_replication.py": "965fc9b3dd447bc91f10441cf1004a93831fa97ef8cfd4ab770ba5a9f0550fa3",
+    "prepare/relational_teacher_v941_metric_replication_contract.py": "a496d3edd659675ab107e674d9d8b12bcd37013f9f83935e2aeb9e61ee6a50d5",
+    "prepare/test_relational_teacher_v941_metric_replication_contract.py": "7c9b46bd79ea4dd6c404a017644731e02c1d0bffa6c9aad3cef86b724bf24ed9",
+    "prepare/validate_relational_teacher_v941_metric_replication.py": "ba6449ea7d426600164d1abe9927bd1c831ace33280e87e9c9e922b7177831af",
+    "prepare/validate_teacher_lora_v941_metric_replication_package.py": "5418a1f3bdd532844fe7e12062070703701714afbd111413d3f7737f69314f45"
+  },
+  "authorization": {
+    "common_descent_response6_on_pass": true,
+    "checkpoint_write": false,
+    "rollout": false,
+    "overfit120": false,
+    "calibration": false,
+    "long_training": false,
+    "room_0102_arrays": false,
+    "room_0201_arrays": false,
+    "paper_test": false
+  }
+}

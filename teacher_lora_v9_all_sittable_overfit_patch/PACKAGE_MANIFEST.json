@@ -1,0 +1,41 @@
+{
+  "schema": "teacher_lora_v9_all_sittable_one_scene_overfit_package_v1",
+  "status": "PACKAGE_PASS",
+  "authorization": {
+    "one_scene_overfit_smoke": true,
+    "maximum_optimizer_updates": 120,
+    "fresh_response3_after_validated_pass": true,
+    "checkpoint_export": false,
+    "calibration": false,
+    "long_training": false,
+    "room_0102_array_access": false,
+    "room_0201_array_access": false,
+    "paper_test_access": false
+  },
+  "source_model": "sealed_v5r4_teacher_plus_fresh_zero_init_lora",
+  "train_scene": "room_0101",
+  "metadata_only_scenes": [
+    "room_0102",
+    "room_0201"
+  ],
+  "teacher_forward_inputs": [
+    "c_pc_feat",
+    "c_pc_xyz",
+    "c_text"
+  ],
+  "required_generated_objects": [
+    "bed_01",
+    "chair_01",
+    "chair_06"
+  ],
+  "required_output": "paired_500_step_reverse_diffusion_maps_with_all_three_objects",
+  "files_sha256": {
+    "README.md": "18872648d643730874fe650925643d9eb9b53ecc6705f9e0c26872399959baf3",
+    "TEACHER_V9_ALL_SITTABLE_ONE_SCENE_OVERFIT_RUNBOOK.md": "a5b9f836aaa11790ec978376781edf539f9a057b18b472c605dec85618900bd3",
+    "prepare/relational_teacher_v9_overfit_smoke_contract.py": "539ba5094519604d3fd4ee95a700ab08aa1a4ed50e330c573b77c094ac8e0869",
+    "prepare/run_relational_teacher_v9_one_scene_overfit_smoke.py": "a1eb459a95151cb3c7dbcbc9f3ed270f0a54ff2c5047e266d7cdb9b9b3349548",
+    "prepare/test_relational_teacher_v9_overfit_smoke_contract.py": "6557a4c3883ee120864fe5f7b87b458fa00c88e4d5c7dbe448744ed7f96219a2",
+    "prepare/validate_relational_teacher_v9_one_scene_overfit_smoke.py": "ecea30aa2142c5fb292e9451998b1d5c815b6e87d6bb44b64afb29e9a05f8275",
+    "prepare/validate_teacher_lora_v9_overfit_smoke_package.py": "6f7692b5251ee77b9e27ae838f5037a4bc95529e5020583ae98d4c31a814c53b"
+  }
+}

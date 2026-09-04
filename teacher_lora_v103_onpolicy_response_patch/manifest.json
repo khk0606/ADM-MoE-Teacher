@@ -1,0 +1,32 @@
+{
+  "schema": "teacher_lora_v103_onpolicy_response_package_v1",
+  "authorization": {
+    "sealed_v102_failure_input": true,
+    "fresh_v5r4_zero_output_lora": true,
+    "room0101_arrays": true,
+    "room0102_arrays": true,
+    "design_audit_seed_disjoint": true,
+    "onpolicy_capture_timesteps": [
+      350,
+      150,
+      50
+    ],
+    "dense_instance_role_tasks": 12,
+    "negative_prompt_v5_tasks": 9,
+    "resumed_final_map_selection": true,
+    "optimizer": false,
+    "checkpoint": false,
+    "room_0201_arrays": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "6a10ee99f2a71eadc977f2f9c5144b496035c134d852331684d62ab0f4e620fb",
+    "prepare/preflight_relational_teacher_v103_onpolicy_response.py": "13f34ff0d7f66b8712f41940b5c87be8cab51df0cb002aa5e4a5f8c78fcace62",
+    "prepare/relational_teacher_v103_onpolicy_response_contract.py": "2725efaa6bc78ace67c3bbbe19b2b891e8132b84127ab326684fb295fe236af9",
+    "prepare/summarize_relational_teacher_v103_onpolicy_response.py": "adb75412a8130be8c821f91d0c7feda1f69686334755bd2c7e9daf965977b9e6",
+    "prepare/test_relational_teacher_v103_onpolicy_response_contract.py": "c4a97005d168099d309bce35247c0e7fa62f7b80aaf34bd6a195857ccb8ce596",
+    "prepare/validate_relational_teacher_v103_onpolicy_response.py": "a1a97fa2925b3133efb3ebdcc7842f25b7c76b6f74f485619276b5d2cce5871e",
+    "prepare/validate_teacher_lora_v103_onpolicy_response_package.py": "f1c6d5e6d6ab57301642966897999d147cda9a7de6d85af7c56de163338396fc",
+    "run_preflight.sh": "08459e6833f7a400317a4e85e7953d6b97a47ef66ba748780948a7fbab2dd06c"
+  }
+}

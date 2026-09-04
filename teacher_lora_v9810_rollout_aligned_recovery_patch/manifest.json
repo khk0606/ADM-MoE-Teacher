@@ -1,0 +1,28 @@
+{
+  "schema": "teacher_lora_v9810_rollout_aligned_recovery_package_v1",
+  "authorization": {
+    "sealed_v989_monotone_bed_only_failure_input": true,
+    "sealed_v988_pass_input": true,
+    "fresh_v5r4_exact_step4_reconstruction": true,
+    "selected_direction_exact_recomputation": true,
+    "room0101_arrays": true,
+    "room0102_arrays": true,
+    "actual_two_scene_k3_recovery_bracket": true,
+    "optimizer_creation": false,
+    "checkpoint_write": false,
+    "room_0201_arrays": false,
+    "development_evaluation": false,
+    "long_training": false,
+    "paper_test": false
+  },
+  "files": {
+    "README.md": "9e08c4b528f6f60622e76f00845a8732c3f6cb95bd2721a84b982ba3463c1359",
+    "TEACHER_V9810_ROLLOUT_ALIGNED_RECOVERY_RUNBOOK.md": "679e472c3c7ecb3ff506fe58b0b702f0cb51b34a49ad3da51fff1aa8ece53821",
+    "prepare/evaluate_relational_teacher_v9810_rollout_aligned_recovery.py": "5e7babcaf10624de2a14a16144818b7b92d075c5e2f07620e2f7482396345016",
+    "prepare/relational_teacher_v9810_rollout_aligned_recovery_contract.py": "b55b3d2fbab7467b2c970845c78e2b4974ba2c468ae2694edf56624263daede1",
+    "prepare/summarize_relational_teacher_v9810_rollout_aligned_recovery.py": "06edc307cd86d9f25371d45d4da77dc9d422089a3df91f72bb7247936308a9fe",
+    "prepare/test_relational_teacher_v9810_rollout_aligned_recovery_contract.py": "d99247640d5c21ea8bb661dff392d40364c44a682f42cec44f60d6280616545d",
+    "prepare/validate_relational_teacher_v9810_rollout_aligned_recovery.py": "232dd079fd332383b028e17604a3259d18ec90e91d6e80d28887d47fa4d77614",
+    "prepare/validate_teacher_lora_v9810_rollout_aligned_recovery_package.py": "8dc05c4f6b25d1b009e6bd00b91780001b7c1d4944ce4fdbfe3aaedda93aa752"
+  }
+}

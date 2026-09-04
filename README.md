@@ -170,12 +170,10 @@ Input RGB             **All-sittable GT       Frozen v5r4 Base
 Compare the top-middle ground-truth panel with the bottom-left Teacher-v10.2
 panel.
 
-![Teacher-v10.2 six-panel Viser result](docs/assets/teacher_v102/teacher_v102_step1000_room0101_watch_generation0.png)
-
 The continuous surface is an XY interpolation for display only. Metrics and
 gates use the original 8192 point-aligned values.
 
-### 4. 5. is for Original Affordance ADM. Can skip
+### * 4. 5. is for Original Affordance ADM. Can skip
 ### 4. Run the original ADM test
 
 After placing the official novel-evaluation data and `CDM-Perceiver-ALL` checkpoint, run:

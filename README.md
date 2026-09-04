@@ -65,6 +65,117 @@ Continue when the command prints `READY`. These external assets keep their origi
 
 See [Data and checkpoints](docs/DATA_AND_CHECKPOINTS.md) for integrity and licensing notes.
 
+## Generate and visualize Teacher-v10.2 affordance maps
+
+Teacher-v10.2 applies dense per-instance supervision to Bed, normal Chair, and
+High Chair instances in `room_0101` and `room_0102`. The model is trained with
+equal macro weighting across the three object roles and evaluated using actual
+500-step reverse-diffusion generation with `K=3` samples for the `watch` and
+`write` prompts.
+
+> **Research status:** Teacher-v10.2 is an experimental candidate. Its saved
+> maps are visually useful, but it did not pass the strict all-three-object K=3
+> gate. Therefore, no Teacher-v10.2 checkpoint was exported. The commands below
+> reproduce and visualize the saved experimental rollout maps; they do not
+> represent a validated final Teacher checkpoint.
+
+### Required Teacher assets
+
+Prepare the following assets under the repository root:
+
+```text
+data/
+├── history_affordance_relational_teacher_v7_hd/
+├── history_affordance_relational_teacher_v9_all_sittable_v1/
+│   ├── index.json
+│   └── experiments/
+├── history_affordance_v1/
+│   ├── splits/chair23_bed2_whiteboard12_multistart24_v1.json
+│   └── experiments/fewshot_cdm_chair23_bed2_whiteboard12_v5r4/
+│       ├── fewshot_cdm.pt
+│       └── gate0a_report.json
+└── Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
+
+outputs/
+└── CDM-Perceiver-ALL/ckpt/model300000.pt
+```
+
+The relational datasets contain the two Unity point-cloud scenes, instance
+labels, dense contact targets, and GT motion bindings used by this experiment.
+
+### Run Teacher-v10.2 training and actual K=3 generation
+
+Teacher-v10.2 is a continuation experiment: its runner verifies the sealed
+Teacher-v10.1 result before starting. To reproduce the complete research chain,
+follow [Teacher experiment history](docs/TEACHER_EXPERIMENT_HISTORY.md). If the
+required v10.1 evidence already exists, run this from the repository root:
+
+```bash
+bash teacher_lora_v102_dense_instance_patch/run_training.sh
+```
+
+The run performs supervised LoRA training and evaluates the shortlisted
+`step_1000`, `step_800`, and `step_400` states using:
+
+- two train scenes: `room_0101`, `room_0102`;
+- two prompts: `watch`, `write`;
+- three deterministic generations per prompt;
+- 500 reverse-diffusion steps per generation.
+
+The generated evidence is saved to:
+
+```text
+data/history_affordance_relational_teacher_v9_all_sittable_v1/
+└── experiments/teacher_lora_v102/
+    └── dense_instance_supervision_s20261031_v1/
+        ├── summary.json
+        └── dense_instance_supervision_maps.npz
+```
+
+`[DENSE_INSTANCE_SUPERVISION_FAIL]` is the recorded experimental gate result,
+not a Python or CUDA execution error. The maps are retained for analysis even
+though checkpoint export remains disabled.
+
+### Validate the saved result
+
+```bash
+python prepare/validate_relational_teacher_v102_dense_instance_supervision.py --summary data/history_affordance_relational_teacher_v9_all_sittable_v1/experiments/teacher_lora_v102/dense_instance_supervision_s20261031_v1/summary.json
+```
+
+The validator checks the bound datasets, saved map hash, array shapes, K=3
+rollout metrics, v5 retention, and the no-checkpoint-on-failure policy.
+
+### Visualize the Teacher affordance maps with Viser
+
+```bash
+bash teacher_lora_v102_dense_instance_patch/run_viewer.sh
+```
+
+The viewer provides controls for:
+
+- `room_0101` and `room_0102`;
+- candidate steps `1000`, `800`, and `400`;
+- generations `0`, `1`, and `2`;
+- `watch` and `write` prompts;
+- Bed, normal Chair, High Chair, or all verified objects;
+- individual body-joint affordance channels.
+
+The six panels are arranged as:
+
+```text
+Input RGB             All-sittable GT       Frozen v5r4 Base
+Teacher-v10.2 result  Candidate − Base      |Candidate − GT|
+```
+
+Compare the top-middle ground-truth panel with the bottom-left Teacher-v10.2
+panel. Compare the top-right Base panel with the bottom-left panel to inspect
+the effect of training.
+
+![Teacher-v10.2 six-panel Viser result](docs/assets/teacher_v102/teacher_v102_step1000_room0101_watch_generation0.png)
+
+The continuous surface is an XY interpolation for display only. Metrics and
+gates use the original 8192 point-aligned values.
+
 ### 4. Run the original ADM test
 
 After placing the official novel-evaluation data and `CDM-Perceiver-ALL` checkpoint, run:
@@ -157,16 +268,16 @@ text + 3D scene
         |
         v
 frozen ADM + LoRA Teacher  ----->  base affordance map A
-                                      |
-text + 3D scene + past history        |
+                                       |
+text + 3D scene + past history         |
         |                              |
         v                              v
       MoE-IIW  --------------------> weighted map A^w
-                                      |
-                                      v
+                                       |
+                                       v
                                frozen CMDM/AMDM
-                                      |
-                                      v
+                                       |
+                                       v
                                   motion M
 ```
 
@@ -182,9 +293,14 @@ This source snapshot contains:
 - Base Teacher and LoRA utilities;
 - MoE-IIW model, routing, training, evaluation, and contract tests;
 - Teacher-v7 data staging, dense-contact, LoRA, pilot, K=1, K=3, and full-train evaluation source;
+- the complete Teacher-v9 through Teacher-v10.3.1 experiment packages,
+  contracts, objectives, validators, summarizers, and Viser viewers;
 - the Unity motion-audit source used before dense-contact generation.
 
-It intentionally excludes datasets, raw motion TXT files, Unity scene exports, experiment summaries, generated numeric affordance maps, checkpoints, videos, local metadata, and superseded patch archives.
+It intentionally excludes upstream checkpoints, body models, generated numeric
+maps, machine-local experiment summaries, videos, and local metadata. The
+author-created relational scene/GT assets may be distributed separately with a
+public result bundle.
 
 See [Repository scope](docs/REPOSITORY_SCOPE.md) for the exact inclusion and exclusion policy.
 
@@ -197,20 +313,32 @@ diffusion/     diffusion implementation
 models/        ADM, CMDM, LoRA, MoE-IIW, and routing modules
 prepare/       data preparation, training, evaluation, validators, and tests
 scripts/       shell entry points for ADM/CMDM experiments
+teacher_lora_* versioned Teacher-v9 through Teacher-v10.3.1 research packages
 unity/         Unity-side physical motion audit source
 utils/         shared utilities
 docs/          Teacher runbooks and repository-scope documentation
 ```
 
-## Current verified status
+## Current research status
 
-The last sealed milestone represented by this source snapshot is the Teacher-v7 selected update-12 train-only K=3 canary:
+Teacher-v10.2 is retained as the current visual comparison candidate. Its dense
+per-instance supervision produces strong pooled recall on most labelled
+instances, but every scene/prompt combination recorded `0/3` generations that
+simultaneously passed all three absolute-object checks. Its step-1000 v5 fixed
+probe also changed by `+6.321%`, beyond the locked 5% retention limit.
 
-- pooled target MAE relative change: `-1.0502%`;
-- pooled case win rate: `81.25%`;
-- failed checks: none.
+Accordingly:
 
-These values are a status statement only; generated maps and evaluation payloads are not committed. Development room `room_0201` was not read by this train-only gate. This repository does not claim a completed development result, held-out result, or independent paper-test result.
+- Teacher-v10.2 status is **FAIL** under the strict actual-K3 gate;
+- `selected_step` is `None`;
+- no Teacher-v10.2 LoRA checkpoint was written;
+- the saved maps and screenshots are experimental evidence, not a validated
+  final Teacher release.
+
+Later Teacher-v10.3/v10.3.1 on-policy experiments are included as research
+history. They do not supersede this status or authorize a final checkpoint.
+See [Teacher experiment history](docs/TEACHER_EXPERIMENT_HISTORY.md) and the
+[Teacher-v10.2 public result summary](docs/results/teacher_v102/README.md).
 
 ## Upstream attribution
 

@@ -33,7 +33,7 @@ CUDA runtime: 11.3
 
 ADM inference requires `CUDA available: True`. If an import fails, reactivate the `afford` environment and rerun step 1 before continuing.
 
-### 3. Prepare the ADM test assets
+### 3. Prepare the teacher ADM test assets
 
 The ADM source code is already included here, so do **not** clone Afford-Motion again. Open the official [Afford-Motion Data Preparation section](https://github.com/afford-motion/afford-motion#data-preparation), choose either the OneDrive or Baidu mirror, and download:
 
@@ -65,7 +65,7 @@ Continue when the command prints `READY`. These external assets keep their origi
 
 See [Data and checkpoints](docs/DATA_AND_CHECKPOINTS.md) for integrity and licensing notes.
 
-## Generate and visualize Teacher-v10.2 affordance maps
+## 3-1 Generate and visualize Teacher-v10.2 affordance maps
 
 Teacher-v10.2 applies dense per-instance supervision to Bed, normal Chair, and
 High Chair instances in `room_0101` and `room_0102`. The model is trained with
@@ -79,7 +79,7 @@ equal macro weighting across the three object roles and evaluated using actual
 > reproduce and visualize the saved experimental rollout maps; they do not
 > represent a validated final Teacher checkpoint.
 
-### Required Teacher assets
+### 3-2 Required Teacher assets
 
 Prepare the following assets under the repository root:
 
@@ -103,7 +103,7 @@ outputs/
 The relational datasets contain the two Unity point-cloud scenes, instance
 labels, dense contact targets, and GT motion bindings used by this experiment.
 
-### Run Teacher-v10.2 training and actual K=3 generation
+### 3-3 Run Teacher-v10.2 training and actual K=3 generation
 
 Teacher-v10.2 is a continuation experiment: its runner verifies the sealed
 Teacher-v10.1 result before starting. To reproduce the complete research chain,
@@ -136,7 +136,7 @@ data/history_affordance_relational_teacher_v9_all_sittable_v1/
 not a Python or CUDA execution error. The maps are retained for analysis even
 though checkpoint export remains disabled.
 
-### Validate the saved result
+### 3-4 Validate the saved result
 
 ```bash
 python prepare/validate_relational_teacher_v102_dense_instance_supervision.py --summary data/history_affordance_relational_teacher_v9_all_sittable_v1/experiments/teacher_lora_v102/dense_instance_supervision_s20261031_v1/summary.json
@@ -145,7 +145,7 @@ python prepare/validate_relational_teacher_v102_dense_instance_supervision.py --
 The validator checks the bound datasets, saved map hash, array shapes, K=3
 rollout metrics, v5 retention, and the no-checkpoint-on-failure policy.
 
-### Visualize the Teacher affordance maps with Viser
+### 3-5 Visualize the Teacher affordance maps with Viser
 
 ```bash
 bash teacher_lora_v102_dense_instance_patch/run_viewer.sh
@@ -163,25 +163,24 @@ The viewer provides controls for:
 The six panels are arranged as:
 
 ```text
-Input RGB             All-sittable GT       Frozen v5r4 Base
-Teacher-v10.2 result  Candidate − Base      |Candidate − GT|
+Input RGB             **All-sittable GT       Frozen v5r4 Base
+**Teacher-v10.2 result  Candidate − Base      |Candidate − GT|
 ```
 
 Compare the top-middle ground-truth panel with the bottom-left Teacher-v10.2
-panel. Compare the top-right Base panel with the bottom-left panel to inspect
-the effect of training.
+panel.
 
 ![Teacher-v10.2 six-panel Viser result](docs/assets/teacher_v102/teacher_v102_step1000_room0101_watch_generation0.png)
 
 The continuous surface is an XY interpolation for display only. Metrics and
 gates use the original 8192 point-aligned values.
 
+### 4. 5. is for Original Affordance ADM. Can skip
 ### 4. Run the original ADM test
 
 After placing the official novel-evaluation data and `CDM-Perceiver-ALL` checkpoint, run:
 
 ```bash
-conda activate afford
 bash scripts/novel_contact/test.sh outputs/CDM-Perceiver-ALL 2023
 ```
 
@@ -206,15 +205,13 @@ If the command reports `No checkpoint found`, confirm that this exact file exist
 outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
 ```
 
-### 5. Visualize the ADM result with Viser
+### 5. Visualize the original ADM result with Viser
 
 Use the exact time-stamped folder created by step 4. For example, if the test created `test-0904-183000`, run this as one line:
 
 ```bash
 python visualize_adm_affordance_viser.py --eval-dir outputs/CDM-Perceiver-ALL/eval/test-0904-183000 --data-root data --host 0.0.0.0 --port 8080
 ```
-
-The terminal prints `[OPEN] http://localhost:8080`. Open that address in a browser. If Ubuntu is running on a remote machine, forward port `8080` to the local computer first.
 
 The Viser page shows two point-aligned panels:
 
@@ -223,41 +220,6 @@ The Viser page shows two point-aligned panels:
 
 Use **Sample / scene / prompt** to change the input case, **Generation** to inspect individual K samples, and **Affordance channel** to switch between `any_joint` and the six body-joint channels. The fixed color scale is purple `0` to red `1`. `RGB blend` changes only the display and never modifies the saved `.npy` result.
 
-Stop the viewer with `Ctrl+C`.
-
-### Common execution problems
-
-#### `torch.cuda.is_available()` is `False`
-
-Check that `nvidia-smi` works in the same Ubuntu/WSL terminal. If it does not, fix the NVIDIA driver or WSL GPU configuration first.
-
-#### PointOps or PyTorch3D fails to compile
-
-```bash
-gcc --version
-nvcc --version
-python -c "import torch; print(torch.__version__, torch.version.cuda)"
-```
-
-The system CUDA compiler used for extensions must be compatible with the PyTorch 1.12/CUDA 11.3 environment.
-
-#### `ModuleNotFoundError`
-
-```bash
-conda activate afford
-pwd
-python -m pip check
-```
-
-Confirm that the `afford` environment is active and the terminal is at the repository root.
-
-#### The terminal shows `>` instead of running the command
-
-The shell is waiting for an unfinished quote or line continuation. Press `Ctrl+C`, then paste the complete command again. Long runnable commands in this README are intentionally written on one line.
-
-#### The output directory already exists
-
-Teacher scripts intentionally avoid overwriting evidence. Use a new versioned path such as `preflight_local_v2` instead of deleting an accepted result.
 
 ## Project overview
 

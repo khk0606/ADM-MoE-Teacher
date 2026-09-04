@@ -2,11 +2,11 @@
 
 ADM-MoE-Teacher extends the open-source Affordance Diffusion Model (ADM) with a Teacher-LoRA adaptation path and mixture-of-experts affordance reasoning.
 
-## Installation and verification
+## Installation and first ADM test
 
 This guide assumes that the repository, Conda environment, PyTorch, and CUDA are already installed. Run every command from the repository root with the `afford` environment active.
 
-### 1. Install repository dependencies
+### 1. Install `requirements.txt`
 
 ```bash
 conda activate afford
@@ -14,12 +14,12 @@ python -m pip install --upgrade pip setuptools wheel
 python -m pip install -r requirements.txt
 ```
 
-`requirements.txt` installs PointOps, CLIP, PyTorch3D, and the remaining runtime packages. PointOps and PyTorch3D may compile CUDA extensions, so this step can take several minutes.
+`requirements.txt` installs PointOps, CLIP, PyTorch3D, Viser, and the remaining runtime packages. PointOps and PyTorch3D may compile CUDA extensions, so this step can take several minutes.
 
 ### 2. Check the installation
 
 ```bash
-python -c "import sys, torch, numpy; print('Python:', sys.version.split()[0]); print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA runtime:', torch.version.cuda); print('NumPy:', numpy.__version__)"
+python -c "import sys, torch, numpy, clip, pytorch3d, viser; print('Python:', sys.version.split()[0]); print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA runtime:', torch.version.cuda); print('NumPy:', numpy.__version__); print('Viser:', viser.__version__)"
 ```
 
 The reference CUDA environment prints values similar to:
@@ -31,39 +31,15 @@ CUDA available: True
 CUDA runtime: 11.3
 ```
 
-`CUDA available: False` is acceptable only for the data-free CPU tests below. Full ADM/Teacher inference and training require an NVIDIA GPU and CUDA.
+ADM inference requires `CUDA available: True`. If an import fails, reactivate the `afford` environment and rerun step 1 before continuing.
 
-### 3. Run the data-free CPU tests
+### 3. Download the external data and checkpoints
 
-These tests use synthetic temporary data. They do not download datasets, load checkpoints, or run an optimizer.
-
-```bash
-python prepare/test_base_teacher_contract.py
-python prepare/test_relational_teacher_v7_hd_preflight_contract.py
-python prepare/test_relational_teacher_v7_hd_k3_contract.py
-```
-
-The final output must contain:
-
-```text
-Ran 55 tests
-OK
-[PASS] Teacher-v7 High-Desk probe selection and tamper guard
-[PASS] only sealed hc_hd train rows can enter CUDA preflight
-[PASS] canonical binding arithmetic is order invariant
-[PASS] v7 K=3 pooled, per-generation and High-Desk gates
-[PASS] multi-seed High-Desk/invariance tamper guards
-```
-
-If these tests pass, the Python environment and source-level Teacher contracts are working. This does not yet test a real checkpoint or scene.
-
-### 4. Prepare external data and checkpoints
-
-Datasets, body models, checkpoints, generated maps, and experiment outputs are not stored in this repository.
+The following files are **not uploaded to this GitHub repository**. The checked-out `main` branch contains none of the paths below, and `.gitignore` excludes `data/`, `body_models/`, `outputs/`, `*.pt`, and `*.npz`. The tree below is therefore the required **local layout after downloading the assets**, not content supplied by `git clone`.
 
 The base ADM/CMDM implementation comes from the official [afford-motion repository](https://github.com/afford-motion/afford-motion). Its README provides the official OneDrive/Baidu links for preprocessed datasets and pretrained models.
 
-Download the upstream assets and preserve their internal directory names. The minimum expected layout for the novel-scene ADM is:
+Download the upstream assets and preserve their internal directory names. The full upstream layout shown in the original project is:
 
 ```text
 ADM-MoE-Teacher/
@@ -78,6 +54,7 @@ ADM-MoE-Teacher/
 │   ├── HumanML3D/
 │   ├── PROX/
 │   ├── POINTTRANS_C_N8192_E300/
+│   │   └── model.pth
 │   └── Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
 └── outputs/
     └── CDM-Perceiver-ALL/
@@ -85,25 +62,27 @@ ADM-MoE-Teacher/
             └── model300000.pt
 ```
 
-The Teacher-v7 CUDA workflow additionally expects:
+For the novel-scene ADM test in the next step, these are the directly required paths:
 
 ```text
-data/
-├── history_affordance_relational_teacher_v7_hd/
-│   └── index.json
-└── history_affordance_v1/
-    ├── splits/
-    └── experiments/
-        └── fewshot_cdm_chair23_bed2_whiteboard12_v5r4/
-            ├── fewshot_cdm.pt
-            └── gate0a_report.json
+data/custom/anno.csv
+data/custom/points/*.npz
+data/POINTTRANS_C_N8192_E300/model.pth
+data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
+outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
 ```
 
-The relational Teacher dataset and v5r4 checkpoint are project-specific assets and are not currently distributed by this repository. Installation and CPU contract testing work without them, but the CUDA Teacher preflight requires them.
+Check all required ADM test assets at once:
+
+```bash
+python -c "from pathlib import Path; required=['data/custom/anno.csv','data/POINTTRANS_C_N8192_E300/model.pth','data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz','outputs/CDM-Perceiver-ALL/ckpt/model300000.pt']; missing=[p for p in required if not Path(p).is_file()]; missing += [] if list(Path('data/custom/points').glob('*.npz')) else ['data/custom/points/*.npz']; print('READY' if not missing else 'MISSING:\n'+'\n'.join(missing)); raise SystemExit(bool(missing))"
+```
+
+Do not commit these downloaded assets to Git. Keep their original licenses and use them only under the terms provided by their respective authors.
 
 See [Data and checkpoints](docs/DATA_AND_CHECKPOINTS.md) for integrity and licensing notes.
 
-### 5. Test the original ADM checkpoint
+### 4. Run the original ADM test
 
 After placing the official novel-evaluation data and `CDM-Perceiver-ALL` checkpoint, run:
 
@@ -112,11 +91,20 @@ conda activate afford
 bash scripts/novel_contact/test.sh outputs/CDM-Perceiver-ALL 2023
 ```
 
-The script runs 500 diffusion steps with seed `2023`. Results are written under a time-stamped directory similar to:
+The script loads `outputs/CDM-Perceiver-ALL/ckpt/model300000.pt`, reads the language prompts and 8192-point scenes in `data/custom/`, and runs 500 reverse-diffusion steps with seed `2023`. It generates a six-channel contact-distance map for the pelvis, left/right foot, neck, and left/right wrist. Results are written under a new time-stamped directory:
 
 ```text
 outputs/CDM-Perceiver-ALL/eval/test-MMDD-HHMMSS/
+├── custom/
+│   └── pred_contact/
+│       ├── 00000.npy
+│       ├── 00001.npy
+│       └── ...
+├── metrics.txt
+└── test.log
 ```
+
+Each prediction file stores contact **distance**, not an image. Its shape is `[K, 8192, 6]`: `K=30` for the first K-sampled cases selected by the current test script and `K=1` for an ordinary single-sample case. Smaller distance means stronger contact/affordance. Because `scripts/novel_contact/test.sh` currently sets `eval_metrics=[]`, `metrics.txt` is expected to be empty; `custom/pred_contact/*.npy` and `test.log` are the useful outputs.
 
 If the command reports `No checkpoint found`, confirm that this exact file exists:
 
@@ -124,51 +112,24 @@ If the command reports `No checkpoint found`, confirm that this exact file exist
 outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
 ```
 
-### 6. Validate the Teacher-v7 dataset
+### 5. Visualize the ADM result with Viser
 
-Run this only after the Teacher-v7 assets have been placed correctly:
-
-```bash
-python prepare/validate_relational_teacher_v7_hd_dataset.py --dataset-root data/history_affordance_relational_teacher_v7_hd --index data/history_affordance_relational_teacher_v7_hd/index.json
-```
-
-Do not continue if validation reports a missing file, hash mismatch, scene mismatch, or failed contract.
-
-### 7. Run the Teacher-LoRA CUDA preflight
-
-The preflight performs no optimizer update and does not save a candidate checkpoint. It verifies dataset/checkpoint bindings, installs a fresh zero-output LoRA, and confirms that valid gradients reach only the LoRA parameters.
-
-Create a new output directory name for every run:
+Use the exact time-stamped folder created by step 4. For example, if the test created `test-0904-183000`, run this as one line:
 
 ```bash
-DATA=data/history_affordance_relational_teacher_v7_hd
-V5=data/history_affordance_v1/experiments/fewshot_cdm_chair23_bed2_whiteboard12_v5r4
-OUT=$DATA/experiments/teacher_lora_v7_hd/preflight_local_v1
+python visualize_adm_affordance_viser.py --eval-dir outputs/CDM-Perceiver-ALL/eval/test-0904-183000 --data-root data --host 0.0.0.0 --port 8080
 ```
 
-Run the preflight as one complete command:
+The terminal prints `[OPEN] http://localhost:8080`. Open that address in a browser. If Ubuntu is running on a remote machine, forward port `8080` to the local computer first.
 
-```bash
-python -u prepare/preflight_relational_teacher_v7_hd_lora.py --dataset-root "$DATA" --index "$DATA/index.json" --stats-file data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz --original-checkpoint outputs/CDM-Perceiver-ALL/ckpt/model300000.pt --v5-checkpoint "$V5/fewshot_cdm.pt" --v5-evidence-report "$V5/gate0a_report.json" --report "$OUT/preflight.json" --diffusion-steps 500 --lora-rank 4 --lora-alpha 8 --seed 20260908 --device cuda:0
-```
+The Viser page shows two point-aligned panels:
 
-Validate the generated report:
+- **Input 3D Scene (RGB):** the original scene in `data/custom/points/`;
+- **ADM Affordance Map:** the selected prediction converted from distance to physical affordance with the same `sigma=0.8` used by the test.
 
-```bash
-python prepare/validate_relational_teacher_v7_hd_lora_preflight.py --report "$OUT/preflight.json"
-```
+Use **Sample / scene / prompt** to change the input case, **Generation** to inspect individual K samples, and **Affordance channel** to switch between `any_joint` and the six body-joint channels. The fixed color scale is purple `0` to red `1`. `RGB blend` changes only the display and never modifies the saved `.npy` result.
 
-Proceed only if both commands print their PASS conclusions. The later sealed training and evaluation commands are under `docs/`.
-
-### 8. Visualize a frozen Base-Teacher cache
-
-If a generated Base-Teacher cache index is available, render point-aligned PNG and PLY artifacts without new GPU inference:
-
-```bash
-python visualize_frozen_base_affordance.py --index /path/to/base_teacher_cache_index.json --dataset-root /path/to/history_affordance_dataset --output-dir outputs/base_teacher_visualization
-```
-
-Use `--skip-ply` when only PNG heatmaps are needed.
+Stop the viewer with `Ctrl+C`.
 
 ### Common execution problems
 
@@ -257,20 +218,6 @@ unity/         Unity-side physical motion audit source
 utils/         shared utilities
 docs/          Teacher runbooks and repository-scope documentation
 ```
-
-## Validation-first Teacher workflow
-
-The current Teacher path is deliberately gated:
-
-1. stage and validate scene/motion bindings;
-2. generate and independently validate dense contact;
-3. run LoRA CUDA zero-initialization and gradient preflight;
-4. run the fresh 12-update recovery calibration;
-5. run the bounded 60-update pilot;
-6. evaluate only the shortlisted checkpoint with paired K=1 and K=3 train-only canaries;
-7. run full train-only K=3 before development evaluation.
-
-Every gate fails closed. A failed validation does not authorize the following training or evaluation stage.
 
 ## Current verified status
 

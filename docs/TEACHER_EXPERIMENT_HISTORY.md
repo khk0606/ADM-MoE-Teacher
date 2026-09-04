@@ -66,9 +66,13 @@ For professor-facing reproduction from a fresh clone, use the portable wrapper
 instead of replaying every historical stage:
 
 ```bash
+bash scripts/teacher_v102/bootstrap.sh
 bash scripts/teacher_v102/reproduce.sh
 bash scripts/teacher_v102/view.sh
 ```
+
+The bootstrap only installs and verifies the data/checkpoint Release. Training,
+actual K=3 evaluation, and map generation begin only when `reproduce.sh` is run.
 
 ## Interpretation rule
 

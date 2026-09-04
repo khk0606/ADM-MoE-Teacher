@@ -11,20 +11,30 @@ files need to be edited after cloning.
 ```bash
 git clone https://github.com/khk0606/ADM-MoE-Teacher.git
 cd ADM-MoE-Teacher
+conda env create -f environment.teacher-v102.yml
+conda activate afford
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements.txt
 bash scripts/teacher_v102/bootstrap.sh
 ```
 
-The bootstrap creates or updates the `afford` Conda environment, installs the
-Python dependencies, and invokes `reproduce.sh`. Its first run downloads
-`teacher-v102-assets-v1` from this repository's GitHub Releases, verifies its
-SHA-256 checksum and every bound payload, installs it under the exact `data/`
-and `outputs/` paths, and then runs Teacher-v10.2 training plus the actual
-two-scene K=3 audit.
+The environment and Python dependencies are installed explicitly above. The
+bootstrap only downloads `teacher-v102-assets-v1` from this repository's GitHub
+Releases, verifies its SHA-256 checksum and every bound payload, installs it
+under the exact `data/` and `outputs/` paths, and validates the sealed
+Teacher-v10.1 prerequisite. It does not start training.
+
+Start Teacher-v10.2 training, actual two-scene K=3 evaluation, and affordance-map
+generation explicitly:
+
+```bash
+bash scripts/teacher_v102/reproduce.sh
+```
 
 After the run completes, start the read-only Viser viewer:
 
 ```bash
-conda run --name afford --no-capture-output bash scripts/teacher_v102/view.sh
+bash scripts/teacher_v102/view.sh
 ```
 
 Open `http://localhost:8080` if a browser does not open automatically.
@@ -113,9 +123,9 @@ equal macro weighting across the three object roles and evaluated using actual
 
 ### 3-2 Teacher asset bundle
 
-The professor-facing `scripts/teacher_v102/reproduce.sh` command downloads and
-installs these assets automatically. Do not manually edit the saved JSON paths.
-After installation, the relevant layout is:
+The `scripts/teacher_v102/bootstrap.sh` command downloads, installs, and verifies
+these assets without starting training. Do not manually edit the saved JSON
+paths. After installation, the relevant layout is:
 
 ```text
 data/
@@ -151,8 +161,9 @@ maintainer procedure.
 ### 3-3 Run Teacher-v10.2 training and actual K=3 generation
 
 Teacher-v10.2 is a continuation experiment: its runner verifies the sealed
-Teacher-v10.1 result before starting. The public wrapper downloads and validates
-that evidence automatically. Run this from the repository root:
+Teacher-v10.1 result before starting. Run `bootstrap.sh` first to install and
+validate that evidence. Training never starts from the bootstrap command. Start
+it explicitly from the repository root:
 
 ```bash
 bash scripts/teacher_v102/reproduce.sh

@@ -5,8 +5,8 @@ trap 'RUN_RC=$?; echo "[DONE] Teacher-v10.2 reproduction exit=$RUN_RC"' EXIT
 ROOT="$(cd "$(dirname "$0")/../.." && pwd -P)"
 cd "$ROOT"
 
+python prepare/fetch_teacher_v102_assets.py --repo-root "$ROOT" --check-only
 python -c 'import clip, numpy, pytorch3d, torch; print("[PASS] core ML imports"); assert torch.cuda.is_available(), "Teacher-v10.2 requires an NVIDIA CUDA device"'
-bash scripts/teacher_v102/fetch_assets.sh
 python research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/prepare/validate_teacher_lora_v102_dense_instance_package.py
 python prepare/test_relational_teacher_v102_dense_instance_contract.py
 

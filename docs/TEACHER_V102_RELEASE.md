@@ -46,10 +46,16 @@ On a clean CUDA machine:
 ```bash
 git clone https://github.com/khk0606/ADM-MoE-Teacher.git
 cd ADM-MoE-Teacher
+conda env create -f environment.teacher-v102.yml
+conda activate afford
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements.txt
 bash scripts/teacher_v102/bootstrap.sh
-conda run --name afford --no-capture-output bash scripts/teacher_v102/view.sh
+bash scripts/teacher_v102/reproduce.sh
+bash scripts/teacher_v102/view.sh
 ```
 
-`reproduce.sh` downloads the Release asset automatically, verifies the archive
-checksum, refuses conflicting local files, verifies every extracted payload and
-source binding, then runs the v10.2 training and actual K=3 audit.
+`bootstrap.sh` downloads the Release asset, verifies the archive checksum,
+refuses conflicting local files, and verifies every extracted payload and source
+binding without training. `reproduce.sh` only proceeds when those assets are
+already installed and then runs the v10.2 training and actual K=3 audit.

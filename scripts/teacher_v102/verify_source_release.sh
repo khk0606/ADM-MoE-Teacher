@@ -103,6 +103,23 @@ echo "[PASS] core Python syntax"
 PYTHONPATH=prepare python prepare/test_teacher_v102_portable_assets.py
 PYTHONPATH=prepare python prepare/test_package_teacher_v102_assets.py
 
+if grep -Eq '^[[:space:]]*(conda|python -m pip|bash scripts/teacher_v102/reproduce\.sh|python .*run_relational_teacher_v102)' scripts/teacher_v102/bootstrap.sh; then
+  echo "[FAIL] bootstrap may only install and validate assets"
+  exit 1
+fi
+if ! grep -q 'bash scripts/teacher_v102/fetch_assets.sh' scripts/teacher_v102/bootstrap.sh \
+  || ! grep -q 'validate_relational_teacher_v101_fullfield_supervision.py' scripts/teacher_v102/bootstrap.sh; then
+  echo "[FAIL] bootstrap asset download/integrity checks are absent"
+  exit 1
+fi
+if grep -Eq '^[[:space:]]*bash scripts/teacher_v102/fetch_assets\.sh' scripts/teacher_v102/reproduce.sh \
+  || ! grep -q -- '--check-only' scripts/teacher_v102/reproduce.sh \
+  || ! grep -q 'run_relational_teacher_v102_dense_instance_supervision.py' scripts/teacher_v102/reproduce.sh; then
+  echo "[FAIL] explicit training boundary changed"
+  exit 1
+fi
+echo "[PASS] manual environment, asset bootstrap and explicit training boundary"
+
 forbidden=$(find . -type f \( -name '*.pt' -o -name '*.pth' -o -name '*.ckpt' -o -name '*.safetensors' -o -name '*.npy' -o -name '*.npz' -o -name '*.pkl' -o -name '*.pickle' -o -name '*.zip' -o -name '*.sha256' \) -not -path './.git/*' -print)
 if [[ -n "$forbidden" ]]; then
   echo "[FAIL] forbidden generated/checkpoint payloads found"

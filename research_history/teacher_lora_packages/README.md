@@ -48,8 +48,9 @@ teacher_lora_v1031_affordance_viewer_patch/
 
 These immutable package launchers reproduce the original continuation workflow
 when all historical experiment directories already exist. For a fresh clone,
-use `bash scripts/teacher_v102/reproduce.sh` instead; it installs the portable
-Release prerequisites before training.
+run `bash scripts/teacher_v102/bootstrap.sh` to install and verify the portable
+Release prerequisites, then start training explicitly with
+`bash scripts/teacher_v102/reproduce.sh`.
 
 Original-history commands, run from the repository root:
 

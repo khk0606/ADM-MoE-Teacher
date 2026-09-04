@@ -46,7 +46,12 @@ teacher_lora_v1031_affordance_viewer_patch/
 
 ## Retained v10.2 commands
 
-Run from the repository root:
+These immutable package launchers reproduce the original continuation workflow
+when all historical experiment directories already exist. For a fresh clone,
+use `bash scripts/teacher_v102/reproduce.sh` instead; it installs the portable
+Release prerequisites before training.
+
+Original-history commands, run from the repository root:
 
 ```bash
 bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_training.sh

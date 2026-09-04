@@ -2,9 +2,41 @@
 
 ADM-MoE-Teacher extends the open-source Affordance Diffusion Model (ADM) with a Teacher-LoRA adaptation path and mixture-of-experts affordance reasoning.
 
-## Installation and first ADM test
+## Teacher-v10.2 fresh-clone quick start
 
-This guide assumes that the repository, Conda environment, PyTorch, and CUDA are already installed. Run every command from the repository root with the `afford` environment active.
+The public reproduction is designed for a Linux machine with an NVIDIA GPU,
+the NVIDIA driver, Conda, Git, and internet access. No repository paths or JSON
+files need to be edited after cloning.
+
+```bash
+git clone https://github.com/khk0606/ADM-MoE-Teacher.git
+cd ADM-MoE-Teacher
+bash scripts/teacher_v102/bootstrap.sh
+```
+
+The bootstrap creates or updates the `afford` Conda environment, installs the
+Python dependencies, and invokes `reproduce.sh`. Its first run downloads
+`teacher-v102-assets-v1` from this repository's GitHub Releases, verifies its
+SHA-256 checksum and every bound payload, installs it under the exact `data/`
+and `outputs/` paths, and then runs Teacher-v10.2 training plus the actual
+two-scene K=3 audit.
+
+After the run completes, start the read-only Viser viewer:
+
+```bash
+conda run --name afford --no-capture-output bash scripts/teacher_v102/view.sh
+```
+
+Open `http://localhost:8080` if a browser does not open automatically.
+
+> **Recorded research outcome:** Teacher-v10.2 produces the retained candidate
+> affordance maps, but its strict all-three-object K=3 gate reports `FAIL` and
+> no final Teacher checkpoint is written. This is the expected reproduced
+> result, not an installation error.
+
+## Manual installation and original ADM test
+
+Run every command from the repository root with the `afford` environment active.
 
 ### 1. Install `requirements.txt`
 
@@ -79,16 +111,25 @@ equal macro weighting across the three object roles and evaluated using actual
 > reproduce and visualize the saved experimental rollout maps; they do not
 > represent a validated final Teacher checkpoint.
 
-### 3-2 Required Teacher assets
+### 3-2 Teacher asset bundle
 
-Prepare the following assets under the repository root:
+The professor-facing `scripts/teacher_v102/reproduce.sh` command downloads and
+installs these assets automatically. Do not manually edit the saved JSON paths.
+After installation, the relevant layout is:
 
 ```text
 data/
+├── teacher_v102_assets_manifest.json
 ├── history_affordance_relational_teacher_v7_hd/
 ├── history_affordance_relational_teacher_v9_all_sittable_v1/
 │   ├── index.json
 │   └── experiments/
+│       ├── teacher_lora_v10/...
+│       └── teacher_lora_v101/
+│           └── fullfield_supervision_s20261030_v1/
+│               ├── summary.json
+│               ├── fullfield_supervision_policy.json
+│               └── fullfield_supervision_maps.npz
 ├── history_affordance_v1/
 │   ├── splits/chair23_bed2_whiteboard12_multistart24_v1.json
 │   └── experiments/fewshot_cdm_chair23_bed2_whiteboard12_v5r4/
@@ -102,16 +143,19 @@ outputs/
 
 The relational datasets contain the two Unity point-cloud scenes, instance
 labels, dense contact targets, and GT motion bindings used by this experiment.
+The bundle also contains the sealed continuation evidence and checkpoints that
+the v10.2 runner verifies before CUDA training. See
+[Teacher-v10.2 Release publishing](docs/TEACHER_V102_RELEASE.md) for the one-time
+maintainer procedure.
 
 ### 3-3 Run Teacher-v10.2 training and actual K=3 generation
 
 Teacher-v10.2 is a continuation experiment: its runner verifies the sealed
-Teacher-v10.1 result before starting. To reproduce the complete research chain,
-follow [Teacher experiment history](docs/TEACHER_EXPERIMENT_HISTORY.md). If the
-required v10.1 evidence already exists, run this from the repository root:
+Teacher-v10.1 result before starting. The public wrapper downloads and validates
+that evidence automatically. Run this from the repository root:
 
 ```bash
-bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_training.sh
+bash scripts/teacher_v102/reproduce.sh
 ```
 
 The run performs supervised LoRA training and evaluates the shortlisted
@@ -148,7 +192,7 @@ rollout metrics, v5 retention, and the no-checkpoint-on-failure policy.
 ### 3-5 Visualize the Teacher affordance maps with Viser
 
 ```bash
-bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_patch/run_viewer.sh
+bash scripts/teacher_v102/view.sh
 ```
 
 The viewer provides controls for:

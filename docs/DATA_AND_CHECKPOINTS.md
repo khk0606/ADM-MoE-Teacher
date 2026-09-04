@@ -1,6 +1,8 @@
 # External data and checkpoints
 
-Large or restricted assets are intentionally not stored in Git.
+Large or restricted assets are intentionally not stored in normal Git history.
+The Teacher-v10.2 reproduction downloads its separately versioned GitHub
+Release asset automatically.
 
 ## Expected local paths
 
@@ -26,6 +28,16 @@ Upstream ADM data, pretrained weights, body models, and third-party assets retai
 their original licenses and are not redistributed by this repository.
 
 ## Teacher-v10.2 artifacts
+
+The public reproduction prerequisites are published as
+`teacher-v102-assets-v1.tar.gz` under the GitHub Release tag
+`teacher-v102-assets-v1`. `bash scripts/teacher_v102/reproduce.sh` downloads the
+archive and checksum, validates repository source bindings and all payload
+hashes, and installs only files under `data/` and `outputs/`. Existing files with
+different content are never overwritten.
+
+The one-time maintainer packaging and publishing procedure is documented in
+`docs/TEACHER_V102_RELEASE.md`.
 
 The v10.2 experiment writes `summary.json` and
 `dense_instance_supervision_maps.npz` under its machine-local experiment

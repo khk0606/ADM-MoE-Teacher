@@ -33,6 +33,11 @@ required_files=(
   prepare/visualize_relational_teacher_v102_dense_instance_viser.py
   prepare/export_relational_teacher_v102_public_bundle.py
   prepare/visualize_relational_teacher_v102_public_viser.py
+  prepare/teacher_v102_portable_assets.py
+  prepare/fetch_teacher_v102_assets.py
+  prepare/package_teacher_v102_assets.py
+  prepare/test_teacher_v102_portable_assets.py
+  prepare/test_package_teacher_v102_assets.py
   "$PACKAGE_ROOT/teacher_lora_v10_supervised_capacity_patch/run_training.sh"
   "$PACKAGE_ROOT/teacher_lora_v101_fullfield_supervision_patch/run_training.sh"
   "$PACKAGE_ROOT/teacher_lora_v102_dense_instance_patch/run_training.sh"
@@ -41,6 +46,14 @@ required_files=(
   docs/results/teacher_v102/metrics_public.json
   docs/assets/teacher_v102/teacher_v102_step1000_room0101_watch_generation0.png
   scripts/teacher_v102/export_public_result.sh
+  scripts/teacher_v102/bootstrap.sh
+  scripts/teacher_v102/fetch_assets.sh
+  scripts/teacher_v102/reproduce.sh
+  scripts/teacher_v102/view.sh
+  scripts/teacher_v102/package_assets.sh
+  scripts/teacher_v102/publish_assets.sh
+  environment.teacher-v102.yml
+  docs/TEACHER_V102_RELEASE.md
 )
 
 missing=0
@@ -81,8 +94,14 @@ python -m py_compile \
   prepare/validate_relational_teacher_v102_dense_instance_supervision.py \
   prepare/visualize_relational_teacher_v102_dense_instance_viser.py \
   prepare/export_relational_teacher_v102_public_bundle.py \
-  prepare/visualize_relational_teacher_v102_public_viser.py
+  prepare/visualize_relational_teacher_v102_public_viser.py \
+  prepare/teacher_v102_portable_assets.py \
+  prepare/fetch_teacher_v102_assets.py \
+  prepare/package_teacher_v102_assets.py
 echo "[PASS] core Python syntax"
+
+PYTHONPATH=prepare python prepare/test_teacher_v102_portable_assets.py
+PYTHONPATH=prepare python prepare/test_package_teacher_v102_assets.py
 
 forbidden=$(find . -type f \( -name '*.pt' -o -name '*.pth' -o -name '*.ckpt' -o -name '*.safetensors' -o -name '*.npy' -o -name '*.npz' -o -name '*.pkl' -o -name '*.pickle' -o -name '*.zip' -o -name '*.sha256' \) -not -path './.git/*' -print)
 if [[ -n "$forbidden" ]]; then

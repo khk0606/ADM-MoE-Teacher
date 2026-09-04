@@ -62,6 +62,14 @@ bash research_history/teacher_lora_packages/teacher_lora_v102_dense_instance_pat
 The first command also requires the sealed v9.8.12 summary. To reproduce from
 the beginning, follow the versioned package READMEs and runbooks in order.
 
+For professor-facing reproduction from a fresh clone, use the portable wrapper
+instead of replaying every historical stage:
+
+```bash
+bash scripts/teacher_v102/reproduce.sh
+bash scripts/teacher_v102/view.sh
+```
+
 ## Interpretation rule
 
 A package-level `PASS` means only that package's stated contract passed. It does

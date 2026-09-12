@@ -1,76 +1,35 @@
-# External data and checkpoints
+# SmallRoom30 data and checkpoints
 
-Large or restricted assets are intentionally not stored in normal Git history.
-The Teacher-v10.2 reproduction downloads its separately versioned GitHub
-Release asset automatically.
+## Publication status
 
-## Expected local paths
+The repository contains source, architecture, and qualitative screenshots. The project owner reports completed training and Viser review. Final server run payloads have not yet been imported or published. No fresh-clone download/bootstrap is claimed.
 
-The current runbooks expect the following categories of files under the repository root:
+## Required saved assets
 
-```text
-data/
-  history_affordance_relational_teacher_v7_hd/
-  history_affordance_relational_teacher_v9_all_sittable_v1/
-  history_affordance_v1/
-  Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
-outputs/
-  CDM-Perceiver-ALL/ckpt/model300000.pt
-body_models/
-  ...
-```
+These are script defaults, not evidence that each directory has been uploaded:
 
-The exact relational dataset contains scene point clouds, semantic metadata,
-dense contact targets, motion bindings, and train/development split information.
-The `room_0101`/`room_0102` Unity point clouds and GT motions are author-created
-assets and may be distributed in a separately versioned result/data bundle.
-Upstream ADM data, pretrained weights, body models, and third-party assets retain
-their original licenses and are not redistributed by this repository.
+| Path | Role |
+| --- | --- |
+| `data/small_room30_adm_lora_v1/` | Exact 30-room dataset, index and manifest |
+| `outputs/small_room30_student_anywhere01/` | Final Anywhere + Purpose Student |
+| `outputs/small_room30_targeted_v5_eval_full01/` | Frozen Teacher 1578 maps and evaluation |
+| `outputs/small_room30_student_competition_cpu_eval01/` | Initialization for Anywhere fine-tuning |
+| `outputs/small_room30_student_pilot01/` | Baseline bindings and text features |
+| Local CLIP ViT-B/32 weights | Verified encoding for the added prompt |
 
-## Teacher-v10.2 artifacts
+Keep the final Student `summary.json`, `manifest.json`, `comparison.json`, `student_model.json`, `student_weights.npz`, `text_features.npz`, `maps/` and actual logs together. Saved-map viewing requires the matching dataset and code bindings; a checkpoint alone is insufficient.
 
-The public reproduction prerequisites are published as
-`teacher-v102-assets-v1.tar.gz` under the GitHub Release tag
-`teacher-v102-assets-v1`. `bash scripts/teacher_v102/bootstrap.sh` downloads the
-archive and checksum, validates repository source bindings and all payload
-hashes, and installs only files under `data/` and `outputs/` without starting
-training. Existing files with different content are never overwritten.
+Teacher retraining additionally needs the LoRA checkpoints, base ADM weights and previous-run dependencies named in its manifests. These paths must be resolved from the actual server run.
 
-The one-time maintainer packaging and publishing procedure is documented in
-`docs/TEACHER_V102_RELEASE.md`.
+## Missing Teacher packaging files
 
-The v10.2 experiment writes `summary.json` and
-`dense_instance_supervision_maps.npz` under its machine-local experiment
-directory. The source repository includes only a path-free public metric summary
-and a rendered screenshot. The exact numeric map bundle may be published as a
-GitHub Release asset if its point-cloud and GT payloads are cleared for release.
+Some legacy Teacher shell scripts reference source seals and audit reports that are absent from the local source snapshot, including targeted_v4/v5 and v5_full SHA256SUMS/dependency lists. They must be recovered and verified from the original server/package before claiming the Teacher training scripts are turnkey. Do not disable validation or regenerate seals merely to bypass mismatches.
 
-Create that portable bundle with
-`bash scripts/teacher_v102/export_public_result.sh`. The exporter verifies the
-original report/map hash, strips machine paths, copies the exact NPZ, and writes
-a portable summary. The companion public Viser verifies the copied hash before
-rendering it.
+## Integrity and privacy
 
-Teacher-v10.2 did not pass checkpoint authorization, so there is no legitimate
-Teacher-v10.2 checkpoint to upload. Do not rename an intermediate in-memory state
-as a validated checkpoint.
-
-## Integrity
-
-For reproducible experiments, keep a private manifest containing:
-
-- the SHA-256 hash of every checkpoint;
-- the SHA-256 hash of every source scene and motion;
-- dataset index and split hashes;
-- random seed, diffusion steps, and software versions;
-- the Git commit used for the run.
-
-Do not commit the private manifest when it contains machine paths, participant information, or restricted asset identifiers.
-
-## Git LFS
-
-This source snapshot does not require Git LFS. If the optional numeric v10.2 map
-bundle is published, prefer a versioned GitHub Release asset. If public
-redistribution of a future checkpoint is authorized, publish it as a versioned
-release asset or in a model repository with a clear license, rather than
-committing it to normal Git history.
+- Preserve raw run JSON and hashes byte-for-byte.
+- Record human acceptance in `docs/results/small_room30_anywhere/REVIEW_STATUS.md`, not by changing `approved=false` in viewer inputs.
+- Keep large weights, numeric maps and data out of normal Git; publish separately only after checking redistribution rights.
+- Remove private paths/identifiers only in a separate public summary, never in sealed raw input files.
+- Preserve upstream model, body-model and Unity asset licenses.
+- The old Teacher-v10.2 asset release is not a substitute for these SmallRoom30 dependencies.

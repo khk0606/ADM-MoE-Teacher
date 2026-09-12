@@ -1,377 +1,98 @@
 # ADM-MoE-Teacher
+## SmallRoom30: History- and Purpose-Conditioned Affordance
 
-ADM-MoE-Teacher extends the open-source Affordance Diffusion Model (ADM) with a Teacher-LoRA adaptation path and mixture-of-experts affordance reasoning.
+Teacher LoRA adaptation and two-branch MoE Student weighting for **30 compact 3D development scenes (6 types × 5 variants)**.
 
-## Teacher-v10.2 fresh-clone quick start
+**Current status:** training completed and the project owner completed qualitative Viser review of the inspected Teacher and Student maps. This is **qualitative acceptance**, not a claim that all quantitative gates passed, that the model generalizes to unseen rooms, or that downstream motion generation was validated.
 
-The public reproduction is designed for a Linux machine with an NVIDIA GPU,
-the NVIDIA driver, Conda, Git, and internet access. No repository paths or JSON
-files need to be edited after cloning.
+[Qualitative results — 15 screenshots](docs/results/small_room30_anywhere/VISUAL_RESULTS.md) · [Review record](docs/results/small_room30_anywhere/REVIEW_STATUS.md) · [Data and saved runs](docs/DATA_AND_CHECKPOINTS.md)
+
+![Architecture](docs/results/small_room30_anywhere/architecture.png)
+
+### 1. Teacher: candidate affordance
+
+The ADM Teacher, adapted with LoRA, provides a base affordance map for the action **“Sit on something”**. The current Student experiment reuses saved Teacher checkpoint **1578** maps and keeps the Teacher fixed.
+
+The map has 8,192 points and six body channels. Its role is to provide multiple sitting candidate regions, not to select a single destination.
+
+### 2. Student: purpose and observed history
+
+The Student uses scene XYZ/RGB, purpose text, and eight observed history frames (0–0.35 s; XY position, velocity and heading).
+
+- Scene-only perception predicts candidate slots, context anchors and spatial support.
+- Relation MoE predicts candidate purpose scores R.
+- History GRU and History MoE predict observed-history scores H.
+- Candidate competition and spatial projection produce point-wise weights:
+
+```text
+S_i   = 0.7 R_i + 0.3 H_i
+q_i   = softmax_i(S_i / 0.1)
+w_n   = sum_i B_ni q_i
+A^w_nc = A_nc × w_n
+```
+
+There are two candidate slots plus a null support channel. Null contributes zero. The weight is shared across body channels; q is a relative preference, not calibrated correctness probability. This is contact/support-region weighting, not a path from the history starting point.
+
+### 3. Actual Student prompts
+
+| Condition | Text |
+| --- | --- |
+| Anywhere | Sit on something |
+| Watch TV | Sit on something to watch TV |
+| Write | Sit on something near a desk or whiteboard to write |
+| Desk | Sit on something near a desk to write |
+| Whiteboard | Sit on something near a whiteboard to write |
+
+Anywhere is included in all 30 rooms. Other purposes are included where applicable; this is not five prompts in every room.
+
+- **Anywhere:** both valid sitting candidates have relation target 1, allowing history to distinguish them.
+- **Specific purpose:** candidate-to-context suitability influences selection; history does not have to override a clear purpose difference.
+- **Room0601:** the broad desk-or-whiteboard prompt allows both contexts; desk-only and whiteboard-only prompts emphasize the respective candidate in the reviewed examples.
+
+![Room0601 desk condition](docs/results/small_room30_anywhere/images/room0601_2.png)
+![Room0601 whiteboard condition](docs/results/small_room30_anywhere/images/room0601_3.png)
+
+### 4. Evaluation scope
+
+| Split | Purpose conditions | Anywhere conditions | Total |
+| --- | ---: | ---: | ---: |
+| Training, g0/g1 | 180 | 120 | 300 |
+| Evaluation, g2 | 90 | 60 | 150 |
+
+The same 30 development rooms occur in both splits; g identifies Teacher-generated samples. These are **not unseen-room test results**. Supervision includes geometric preference proxies, not human intent ground truth.
+
+The gallery documents the inspected cases. Actual final run weights and machine-readable metrics have not yet been published here. Package test reports are engineering checks, not trained-model performance.
+
+### 5. Open the accepted Student results in Viser
+
+Use the existing Linux AMDM/afford environment **with the matching dataset and completed saved run installed**:
 
 ```bash
-git clone https://github.com/khk0606/ADM-MoE-Teacher.git
-cd ADM-MoE-Teacher
-conda env create -f environment.teacher-v102.yml
 conda activate afford
-python -m pip install --upgrade pip setuptools wheel
-python -m pip install -r requirements.txt
-bash scripts/teacher_v102/bootstrap.sh
+PORT=8092 bash scripts/small_room30/student_anywhere.sh view
 ```
 
-The environment and Python dependencies are installed explicitly above. The
-bootstrap only downloads `teacher-v102-assets-v1` from this repository's GitHub
-Releases, verifies its SHA-256 checksum and every bound payload, installs it
-under the exact `data/` and `outputs/` paths, and validates the sealed
-Teacher-v10.1 prerequisite. It does not start training.
-
-Start Teacher-v10.2 training, actual two-scene K=3 evaluation, and affordance-map
-generation explicitly:
+The viewer title should be **Anywhere + Purpose Student**. In a remote session, forward port 8092 and open the forwarded address. This reads saved maps; it does not train or infer. If a different output directory was used:
 
 ```bash
-bash scripts/teacher_v102/reproduce.sh
+SUMMARY=outputs/YOUR_COMPLETED_RUN/summary.json PORT=8092 bash scripts/small_room30/student_anywhere.sh view
 ```
 
-After the run completes, start the read-only Viser viewer:
+Do not edit the original summary's approval fields or hashes. Human review is recorded [separately](docs/results/small_room30_anywhere/REVIEW_STATUS.md).
 
-```bash
-bash scripts/teacher_v102/view.sh
-```
+### 6. Training source and prerequisites
 
-Open `http://localhost:8080` if a browser does not open automatically.
+- [Student procedure](SMALL_ROOM30_ANYWHERE.md)
+- [Teacher saved1578 full evaluation](SMALL_ROOM30_V5_FULL_EVALUATION.md)
+- [Data, checkpoints and reproduction limitations](docs/DATA_AND_CHECKPOINTS.md)
+- [Repository scope](docs/REPOSITORY_SCOPE.md)
 
-> **Recorded research outcome:** Teacher-v10.2 produces the retained candidate
-> affordance maps, but its strict all-three-object K=3 gate reports `FAIL` and
-> no final Teacher checkpoint is written. This is the expected reproduced
-> result, not an installation error.
+The Student procedure fine-tunes a completed competition Student; it is not from-scratch training. Current source requires historical initialization assets and exact dataset bindings. **A fresh clone alone cannot reproduce the reported maps.** Do not substitute old Teacher-v10.2 release assets for the SmallRoom30 runs.
 
-## Manual installation and original ADM test
+The original ADM implementation, dependency files and upstream license remain in the repository. Follow the existing compatible environment; this update does not introduce a validated fresh-install environment.
 
-Run every command from the repository root with the `afford` environment active.
+### License and attribution
 
-### 1. Install `requirements.txt`
+This work extends the [Affordance Diffusion Model](https://github.com/afford-motion/afford-motion). Preserve the [upstream MIT license](LICENSE) and the licenses of third-party data, pretrained models and body models. Such assets are not included in ordinary Git.
 
-```bash
-conda activate afford
-python -m pip install --upgrade pip setuptools wheel
-python -m pip install -r requirements.txt
-```
-
-`requirements.txt` installs PointOps, CLIP, PyTorch3D, Viser, and the remaining runtime packages. PointOps and PyTorch3D may compile CUDA extensions, so this step can take several minutes.
-
-### 2. Check the installation
-
-```bash
-python -c "import sys, torch, numpy, clip, pytorch3d, viser; print('Python:', sys.version.split()[0]); print('PyTorch:', torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('CUDA runtime:', torch.version.cuda); print('NumPy:', numpy.__version__); print('Viser:', viser.__version__)"
-```
-
-The reference CUDA environment prints values similar to:
-
-```text
-Python: 3.8.x
-PyTorch: 1.12.0
-CUDA available: True
-CUDA runtime: 11.3
-```
-
-ADM inference requires `CUDA available: True`. If an import fails, reactivate the `afford` environment and rerun step 1 before continuing.
-
-### 3. Prepare the teacher ADM test assets
-
-The ADM source code is already included here, so do **not** clone Afford-Motion again. Open the official [Afford-Motion Data Preparation section](https://github.com/afford-motion/afford-motion#data-preparation), choose either the OneDrive or Baidu mirror, and download:
-
-- **preprocessed data:** use only `custom`, `POINTTRANS_C_N8192_E300`, and the `Mean_Std_Cont_...0.8_fur.npz` file;
-- **pre-trained models:** use only `CDM-Perceiver-ALL`.
-
-Copy those files into this repository so the final layout is exactly:
-
-```text
-ADM-MoE-Teacher/
-├── data/
-│   ├── custom/
-│   │   ├── anno.csv
-│   │   └── points/*.npz
-│   ├── POINTTRANS_C_N8192_E300/model.pth
-│   └── Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
-└── outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
-```
-
-The body model and the H3D, HUMANISE, HumanML3D, PROX, `data/eval`, and AMDM/CMDM assets are not needed for this test.
-
-Check that all required files are present:
-
-```bash
-python -c "from pathlib import Path; required=['data/custom/anno.csv','data/POINTTRANS_C_N8192_E300/model.pth','data/Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz','outputs/CDM-Perceiver-ALL/ckpt/model300000.pt']; missing=[p for p in required if not Path(p).is_file()]; missing += [] if list(Path('data/custom/points').glob('*.npz')) else ['data/custom/points/*.npz']; print('READY' if not missing else 'MISSING:\n'+'\n'.join(missing)); raise SystemExit(bool(missing))"
-```
-
-Continue when the command prints `READY`. These external assets keep their original licenses and are intentionally not included in this repository.
-
-See [Data and checkpoints](docs/DATA_AND_CHECKPOINTS.md) for integrity and licensing notes.
-
-## 3-1 Generate and visualize Teacher-v10.2 affordance maps
-
-Teacher-v10.2 applies dense per-instance supervision to Bed, normal Chair, and
-High Chair instances in `room_0101` and `room_0102`. The model is trained with
-equal macro weighting across the three object roles and evaluated using actual
-500-step reverse-diffusion generation with `K=3` samples for the `watch` and
-`write` prompts.
-
-> **Research status:** Teacher-v10.2 is an experimental candidate. Its saved
-> maps are visually useful, but it did not pass the strict all-three-object K=3
-> gate. Therefore, no Teacher-v10.2 checkpoint was exported. The commands below
-> reproduce and visualize the saved experimental rollout maps; they do not
-> represent a validated final Teacher checkpoint.
-
-### 3-2 Teacher asset bundle
-
-The `scripts/teacher_v102/bootstrap.sh` command downloads, installs, and verifies
-these assets without starting training. Do not manually edit the saved JSON
-paths. After installation, the relevant layout is:
-
-```text
-data/
-├── teacher_v102_assets_manifest.json
-├── history_affordance_relational_teacher_v7_hd/
-├── history_affordance_relational_teacher_v9_all_sittable_v1/
-│   ├── index.json
-│   └── experiments/
-│       ├── teacher_lora_v10/...
-│       └── teacher_lora_v101/
-│           └── fullfield_supervision_s20261030_v1/
-│               ├── summary.json
-│               ├── fullfield_supervision_policy.json
-│               └── fullfield_supervision_maps.npz
-├── history_affordance_v1/
-│   ├── splits/chair23_bed2_whiteboard12_multistart24_v1.json
-│   └── experiments/fewshot_cdm_chair23_bed2_whiteboard12_v5r4/
-│       ├── fewshot_cdm.pt
-│       └── gate0a_report.json
-└── Mean_Std_Cont_HumanML3D_HUMANISE_PROX_contact_cont_joints_0.8_fur.npz
-
-outputs/
-└── CDM-Perceiver-ALL/ckpt/model300000.pt
-```
-
-The relational datasets contain the two Unity point-cloud scenes, instance
-labels, dense contact targets, and GT motion bindings used by this experiment.
-The bundle also contains the sealed continuation evidence and checkpoints that
-the v10.2 runner verifies before CUDA training. See
-[Teacher-v10.2 Release publishing](docs/TEACHER_V102_RELEASE.md) for the one-time
-maintainer procedure.
-
-### 3-3 Run Teacher-v10.2 training and actual K=3 generation
-
-Teacher-v10.2 is a continuation experiment: its runner verifies the sealed
-Teacher-v10.1 result before starting. Run `bootstrap.sh` first to install and
-validate that evidence. Training never starts from the bootstrap command. Start
-it explicitly from the repository root:
-
-```bash
-bash scripts/teacher_v102/reproduce.sh
-```
-
-The run performs supervised LoRA training and evaluates the shortlisted
-`step_1000`, `step_800`, and `step_400` states using:
-
-- two train scenes: `room_0101`, `room_0102`;
-- two prompts: `watch`, `write`;
-- three deterministic generations per prompt;
-- 500 reverse-diffusion steps per generation.
-
-The generated evidence is saved to:
-
-```text
-data/history_affordance_relational_teacher_v9_all_sittable_v1/
-└── experiments/teacher_lora_v102/
-    └── dense_instance_supervision_s20261031_v1/
-        ├── summary.json
-        └── dense_instance_supervision_maps.npz
-```
-
-`[DENSE_INSTANCE_SUPERVISION_FAIL]` is the recorded experimental gate result,
-not a Python or CUDA execution error. The maps are retained for analysis even
-though checkpoint export remains disabled.
-
-### 3-4 Validate the saved result
-
-```bash
-python prepare/validate_relational_teacher_v102_dense_instance_supervision.py --summary data/history_affordance_relational_teacher_v9_all_sittable_v1/experiments/teacher_lora_v102/dense_instance_supervision_s20261031_v1/summary.json
-```
-
-The validator checks the bound datasets, saved map hash, array shapes, K=3
-rollout metrics, v5 retention, and the no-checkpoint-on-failure policy.
-
-### 3-5 Visualize the Teacher affordance maps with Viser
-
-```bash
-bash scripts/teacher_v102/view.sh
-```
-
-The viewer provides controls for:
-
-- `room_0101` and `room_0102`;
-- candidate steps `1000`, `800`, and `400`;
-- generations `0`, `1`, and `2`;
-- `watch` and `write` prompts;
-- Bed, normal Chair, High Chair, or all verified objects;
-- individual body-joint affordance channels.
-
-The six panels are arranged as:
-
-```text
-Input RGB             **All-sittable GT       Frozen v5r4 Base
-**Teacher-v10.2 result  Candidate − Base      |Candidate − GT|
-```
-
-Compare the top-middle ground-truth panel with the bottom-left Teacher-v10.2
-panel.
-
-The continuous surface is an XY interpolation for display only. Metrics and
-gates use the original 8192 point-aligned values.
-
-### * 4. 5. is for Original Affordance ADM. Can skip
-### 4. Run the original ADM test
-
-After placing the official novel-evaluation data and `CDM-Perceiver-ALL` checkpoint, run:
-
-```bash
-bash scripts/novel_contact/test.sh outputs/CDM-Perceiver-ALL 2023
-```
-
-The script loads `outputs/CDM-Perceiver-ALL/ckpt/model300000.pt`, reads the language prompts and 8192-point scenes in `data/custom/`, and runs 500 reverse-diffusion steps with seed `2023`. It generates a six-channel contact-distance map for the pelvis, left/right foot, neck, and left/right wrist. Results are written under a new time-stamped directory:
-
-```text
-outputs/CDM-Perceiver-ALL/eval/test-MMDD-HHMMSS/
-├── custom/
-│   └── pred_contact/
-│       ├── 00000.npy
-│       ├── 00001.npy
-│       └── ...
-├── metrics.txt
-└── test.log
-```
-
-Each prediction file stores contact **distance**, not an image. Its shape is `[K, 8192, 6]`: `K=30` for the first K-sampled cases selected by the current test script and `K=1` for an ordinary single-sample case. Smaller distance means stronger contact/affordance. Because `scripts/novel_contact/test.sh` currently sets `eval_metrics=[]`, `metrics.txt` is expected to be empty; `custom/pred_contact/*.npy` and `test.log` are the useful outputs.
-
-If the command reports `No checkpoint found`, confirm that this exact file exists:
-
-```text
-outputs/CDM-Perceiver-ALL/ckpt/model300000.pt
-```
-
-### 5. Visualize the original ADM result with Viser
-
-Use the exact time-stamped folder created by step 4. For example, if the test created `test-0904-183000`, run this as one line:
-
-```bash
-python visualize_adm_affordance_viser.py --eval-dir outputs/CDM-Perceiver-ALL/eval/test-0904-183000 --data-root data --host 0.0.0.0 --port 8080
-```
-
-The Viser page shows two point-aligned panels:
-
-- **Input 3D Scene (RGB):** the original scene in `data/custom/points/`;
-- **ADM Affordance Map:** the selected prediction converted from distance to physical affordance with the same `sigma=0.8` used by the test.
-
-Use **Sample / scene / prompt** to change the input case, **Generation** to inspect individual K samples, and **Affordance channel** to switch between `any_joint` and the six body-joint channels. The fixed color scale is purple `0` to red `1`. `RGB blend` changes only the display and never modifies the saved `.npy` result.
-
-
-## Project overview
-
-The goal is to generate a history-conditioned affordance map rather than treating motion generation itself as the primary contribution.
-
-```text
-text + 3D scene
-        |
-        v
-frozen ADM + LoRA Teacher  ----->  base affordance map A
-                                       |
-text + 3D scene + past history         |
-        |                              |
-        v                              v
-      MoE-IIW  --------------------> weighted map A^w
-                                       |
-                                       v
-                               frozen CMDM/AMDM
-                                       |
-                                       v
-                                  motion M
-```
-
-The Teacher learns general action-compatible regions from text, scene point clouds, and dense motion-contact supervision. Instance identity, object relations, purpose-object distance, and motion identity are supervision metadata and are excluded from the Teacher forward input.
-
-The MoE stage conditions and selects among valid candidates using history. A planned relation-aware extension can additionally use purpose compatibility, such as choosing a sittable object appropriate for watching or writing.
-
-## Repository scope
-
-This source snapshot contains:
-
-- the ADM/CMDM base implementation;
-- Base Teacher and LoRA utilities;
-- MoE-IIW model, routing, training, evaluation, and contract tests;
-- Teacher-v7 data staging, dense-contact, LoRA, pilot, K=1, K=3, and full-train evaluation source;
-- the complete Teacher-v9 through Teacher-v10.3.1 experiment packages,
-  contracts, objectives, validators, summarizers, and Viser viewers;
-- the Unity motion-audit source used before dense-contact generation.
-
-It intentionally excludes upstream checkpoints, body models, generated numeric
-maps, machine-local experiment summaries, videos, and local metadata. The
-author-created relational scene/GT assets may be distributed separately with a
-public result bundle.
-
-See [Repository scope](docs/REPOSITORY_SCOPE.md) for the exact inclusion and exclusion policy.
-
-## Source layout
-
-```text
-configs/       Hydra configurations for ADM and CMDM
-datasets/      dataset loaders and transforms
-diffusion/     diffusion implementation
-models/        ADM, CMDM, LoRA, MoE-IIW, and routing modules
-prepare/       data preparation, training, evaluation, validators, and tests
-scripts/       shell entry points for ADM/CMDM experiments
-teacher_lora_* versioned Teacher-v9 through Teacher-v10.3.1 research packages
-unity/         Unity-side physical motion audit source
-utils/         shared utilities
-docs/          Teacher runbooks and repository-scope documentation
-```
-
-## Current research status
-
-Teacher-v10.2 is retained as the current visual comparison candidate. Its dense
-per-instance supervision produces strong pooled recall on most labelled
-instances, but every scene/prompt combination recorded `0/3` generations that
-simultaneously passed all three absolute-object checks. Its step-1000 v5 fixed
-probe also changed by `+6.321%`, beyond the locked 5% retention limit.
-
-Accordingly:
-
-- Teacher-v10.2 status is **FAIL** under the strict actual-K3 gate;
-- `selected_step` is `None`;
-- no Teacher-v10.2 LoRA checkpoint was written;
-- the saved maps and screenshots are experimental evidence, not a validated
-  final Teacher release.
-
-Later Teacher-v10.3/v10.3.1 on-policy experiments are included as research
-history. They do not supersede this status or authorize a final checkpoint.
-See [Teacher experiment history](docs/TEACHER_EXPERIMENT_HISTORY.md) and the
-[Teacher-v10.2 public result summary](docs/results/teacher_v102/README.md).
-
-## Upstream attribution
-
-The base implementation is derived from the official code for *Move as You Say, Interact as You Can: Language-guided Human Motion Generation with Scene Affordance* (CVPR 2024):
-
-- [Official code](https://github.com/afford-motion/afford-motion)
-- [Project page](https://afford-motion.github.io/)
-- [CVPR paper](https://openaccess.thecvf.com/content/CVPR2024/html/Wang_Move_as_You_Say_Interact_as_You_Can_Language-guided_Human_CVPR_2024_paper.html)
-
-```bibtex
-@inproceedings{wang2024move,
-  title={Move as You Say, Interact as You Can: Language-guided Human Motion Generation with Scene Affordance},
-  author={Wang, Zan and Chen, Yixin and Jia, Baoxiong and Li, Puhao and Zhang, Jinlu and Zhang, Jingze and Liu, Tengyu and Zhu, Yixin and Liang, Wei and Huang, Siyuan},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  year={2024}
-}
-```
-
-## License
-
-See [LICENSE](LICENSE). Dataset, pretrained-model, Unity-asset, and body-model licenses are separate and those files are not included in this repository.
+Earlier unsuccessful result showcases and duplicate patch archives were removed from the current tree. They remain recoverable from Git history; shared legacy modules used by current code remain.

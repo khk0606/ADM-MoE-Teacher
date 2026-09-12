@@ -1,38 +1,11 @@
-# Repository scope and exclusion policy
+# Repository scope
 
-This repository is a clean source snapshot, not a backup of the training machine.
+The current showcase is SmallRoom30 Teacher LoRA plus Anywhere + Purpose Student, with owner-reported completed qualitative review.
 
-## Included
+Included: current training, review and Viser source; transitive shared modules; 15 Viser captures; architecture; actual prompt definitions; review scope and data requirements.
 
-- ADM/CMDM implementation and configuration.
-- Base Teacher and LoRA source required by the current Teacher pipeline.
-- MoE-IIW source, routing code, evaluators, and contract tests.
-- Teacher-v7 source for dataset staging, dense-contact generation, CUDA preflight, invariance recovery, the bounded pilot, K=1/K=3 canaries, and full train-only K=3 evaluation.
-- Versioned Teacher-v9 through Teacher-v10.3.1 source deliveries, including
-  contracts, objectives, run entry points, validators, tests, summarizers, and
-  Viser viewers.
-- A path-free public Teacher-v10.2 metric summary and visualization screenshot.
-- One Unity C# physical-audit source file.
-- Current runbooks and the upstream MIT license.
+Excluded from the current showcase: unsuccessful Teacher-v10.2 public result, its old bootstrap/run scripts, and duplicate research-history patch packages. Their exact contents remain recoverable from Git history before this update. Shared older modules in prepare/ remain where dependencies need them; their filename does not make them the current result.
 
-## Excluded
+Unrelated local work was not included. Existing third-party implementation and license notices are preserved.
 
-- `_data_metadata/` and machine-local dataset payloads.
-- machine-local `experiments/`, summaries, reports, generated maps, metrics,
-  videos, and logs. Small path-free results under `docs/results/` are allowed.
-- all `.pt`, `.pth`, `.ckpt`, `.npy`, `.npz`, pickle, and archive files.
-- raw/combined motion TXT files and Unity-exported scenes.
-- delivery ZIP files, SHA-256 sidecars, and partial transfers. Versioned source
-  directories are included, but their transport archives are not.
-- the superseded Teacher-v6 training pipeline and failed Teacher-v7 calibration entry point.
-- experimental History-Affordance objective-v2/v2.1/v2.2/v2.4 patch trees that are not part of the current Teacher-v7 gate.
-
-Two Teacher-v6 modules remain under `prepare/`: `relational_teacher_v6_contract.py` and `relational_teacher_v6_semantics.py`. They are retained because the current Teacher-v7 code imports their stable prompt, hashing, atomic-write, and semantic-loss helpers. This is dependency reuse, not inclusion of the superseded v6 training pipeline.
-
-## Current claims
-
-Teacher-v10.2 is published as an experimental visual candidate, not as a
-validated Teacher checkpoint. It failed the strict actual-K3 selection gate,
-`selected_step` remained `None`, and checkpoint export was not authorized.
-Teacher-v10.3 and v10.3.1 are included as later diagnostic/calibration history;
-they do not change the v10.2 result or establish a final Teacher release.
+No final weights or raw server evaluation payloads are included in this source update. Synthetic/local package tests must not be presented as model evaluation success. Qualitative acceptance does not imply unseen-room generalization or validated motion generation.

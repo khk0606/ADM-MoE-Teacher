@@ -1,35 +1,14 @@
-# GitHub upload checklist
+# SmallRoom30 publication checklist
 
-Target repository: `https://github.com/khk0606/ADM-MoE-Teacher.git`
+- [x] Current README describes the accepted qualitative result rather than the old failed experiment.
+- [x] Actual five prompt texts and split scope are stated.
+- [x] Viser screenshots and architecture are included.
+- [x] Human review is separate from machine-generated approval flags.
+- [x] Current source and shared dependencies are included.
+- [ ] Import and verify the exact final server checkpoint, maps and run reports.
+- [ ] Recover missing Teacher source seals from original packages/server.
+- [ ] Verify redistribution rights and publish versioned data/model assets.
+- [ ] Validate a fresh-clone installation with those assets.
+- [ ] Add measured quantitative results, without treating package fixtures as trained outputs.
 
-Before the first push, run from the clean repository directory:
-
-```bash
-git status --short
-git ls-files | sort
-find . -type f -size +50M -not -path './.git/*'
-git grep -nE '/home/kang|/Users/kanghyunkyu|DESKTOP-KANG|kang-gpu-server' -- .
-git grep -nE 'BEGIN (RSA|OPENSSH|EC) PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}' -- .
-```
-
-The two `git grep` commands should print nothing. The large-file check should also print nothing.
-
-For the Teacher-v9-v10.3.1 source release, also run:
-
-```bash
-bash scripts/teacher_v102/verify_source_release.sh
-```
-
-This checks the runnable v10.2 dependency chain, versioned package directories,
-package manifests, Python syntax, forbidden numeric/checkpoint payloads, large
-files, and machine-local path leakage.
-
-Review the staged file list, then commit and push:
-
-```bash
-git diff --cached --stat
-git commit -m "Initial source release"
-git push -u origin main
-```
-
-Never use `git add -f` to override `.gitignore` for datasets, checkpoints, experiment outputs, motion TXT files, or Unity exports.
+Do not publish secrets, machine-local logs, body models or pretrained weights without appropriate review. Earlier GitHub release assets are historical and must not be relabeled as SmallRoom30 results.

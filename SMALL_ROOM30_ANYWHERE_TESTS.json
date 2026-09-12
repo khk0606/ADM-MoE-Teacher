@@ -1,0 +1,1132 @@
+{
+  "status": "LOCAL_TESTS_PASS_REMOTE_PREFLIGHT_AND_TRAINING_PENDING",
+  "tests": {
+    "test_small_room30_anywhere": "[PREFLIGHT ANYWHERE] Existing1578 + initial competition weights + real added CLIP text\n[COMPETITION TRAIN] {\"step\": 1, \"phase\": \"joint_competition\", \"seconds\": 0.04022833297494799, \"scene\": \"synthetic\", \"generation\": 1, \"total\": 21.92405891418457, \"auxiliary\": 16.670480728149414, \"semantic\": 1.7912352085113525, \"purpose\": 2.22515869140625, \"anchors\": 2.0745935440063477, \"slots\": 0.5371900796890259, \"support\": 2.475764751434326, \"relation\": 0.21358086168766022, \"history\": 0.09199110418558121, \"choice\": 0.6931850910186768, \"map\": 0.05460818111896515, \"floor\": 0.12298933416604996, \"paired\": 0.6206554174423218, \"router\": 0.0006948336958885193}\n[COMPETITION TRAIN] {\"step\": 2, \"phase\": \"joint_competition\", \"seconds\": 0.04779275006148964, \"scene\": \"synthetic\", \"generation\": 0, \"total\": 21.9094295501709, \"auxiliary\": 16.65752410888672, \"semantic\": 1.7905383110046387, \"purpose\": 2.222838878631592, \"anchors\": 2.0720114707946777, \"slots\": 0.5371364951133728, \"support\": 2.4736745357513428, \"relation\": 0.21338845789432526, \"history\": 0.09194246679544449, \"choice\": 0.6931375861167908, \"map\": 0.05461037531495094, \"floor\": 0.12285210937261581, \"paired\": 0.6206395626068115, \"router\": 0.0007930607534945011}\n[CPU EVAL] Single-thread, unchanged strict invariance checks; no CUDA evaluation\n[COMPETITION EVAL] 6/6\n[NOT AUTO-APPROVED] 6/6 diagnostic failures; 4 missed expected switches.\n[DONE \u2014 REVIEW REQUIRED] /var/folders/9h/y8x0xtdd73n6zqw1kh6q65y00000gn/T/tmp1ao0dkbh/anywhere/summary.json\ntest_anywhere_removes_purpose_not_history_or_support (test_small_room30_anywhere.AnywhereTests.test_anywhere_removes_purpose_not_history_or_support) ... ok\ntest_clip_file_guard_before_deserialization (test_small_room30_anywhere.AnywhereTests.test_clip_file_guard_before_deserialization) ... ok\ntest_equal_relation_history_controls_choice_and_ties_allowed (test_small_room30_anywhere.AnywhereTests.test_equal_relation_history_controls_choice_and_ties_allowed) ... ok\ntest_mismatched_encoder_feature_rejected (test_small_room30_anywhere.AnywhereTests.test_mismatched_encoder_feature_rejected) ... ok\ntest_numeric_text_contract_preserves_legacy_exact (test_small_room30_anywhere.AnywhereTests.test_numeric_text_contract_preserves_legacy_exact) ... ok\ntest_real_sentence_not_prompt_id (test_small_room30_anywhere.AnywhereTests.test_real_sentence_not_prompt_id) ... ok\ntest_synthetic_cli_finetune_and_cpu_eval_keep_original (test_small_room30_anywhere.AnywhereTests.test_synthetic_cli_finetune_and_cpu_eval_keep_original) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.613s\n\nOK\n",
+    "test_small_room30_competition": "[COMPETITION TRAIN] {\"step\": 1, \"phase\": \"perception_and_support_warmup\", \"seconds\": 0.004271000041626394, \"scene\": \"synthetic\", \"generation\": 1, \"total\": 21.164676666259766, \"auxiliary\": 16.985387802124023, \"semantic\": 1.7519662380218506, \"purpose\": 2.248931407928467, \"anchors\": 2.2998886108398438, \"slots\": 0.5396944880485535, \"support\": 2.532310724258423, \"relation\": 0.20245224237442017, \"history\": 0.09046588838100433, \"choice\": 0.6917584538459778, \"map\": 0.06323099136352539, \"floor\": 0.16982200741767883, \"paired\": 0.0, \"router\": 0.0025389662478119135}\n[COMPETITION TRAIN] {\"step\": 3, \"phase\": \"joint_competition\", \"seconds\": 0.015290083014406264, \"scene\": \"synthetic\", \"generation\": 0, \"total\": 20.876296997070312, \"auxiliary\": 16.701763153076172, \"semantic\": 1.7478083372116089, \"purpose\": 2.1325619220733643, \"anchors\": 2.2811317443847656, \"slots\": 0.5388733148574829, \"support\": 2.5216355323791504, \"relation\": 0.2024003267288208, \"history\": 0.09047919511795044, \"choice\": 0.6908899545669556, \"map\": 0.06322544813156128, \"floor\": 0.16934019327163696, \"paired\": 0.0, \"router\": 0.0016925581730902195}\n[COMPETITION EVAL] 1/1\n[NOT AUTO-APPROVED] 1/1 diagnostic failures; 0 missed expected switches.\ntest_branch_supervision_isolated_at_moe_heads (test_small_room30_competition.CompetitionTests.test_branch_supervision_isolated_at_moe_heads) ... ok\ntest_continuous_distance_targets (test_small_room30_competition.CompetitionTests.test_continuous_distance_targets) ... ok\ntest_exact_formula_and_raw_teacher (test_small_room30_competition.CompetitionTests.test_exact_formula_and_raw_teacher) ... ok\ntest_floor_support_not_point_one_five_and_null_objects (test_small_room30_competition.CompetitionTests.test_floor_support_not_point_one_five_and_null_objects) ... ok\ntest_invalid_inputs (test_small_room30_competition.CompetitionTests.test_invalid_inputs) ... ok\ntest_joint_finite_connected (test_small_room30_competition.CompetitionTests.test_joint_finite_connected) ... ok\ntest_multi_context_history_switch_and_single_purpose_priority (test_small_room30_competition.CompetitionTests.test_multi_context_history_switch_and_single_purpose_priority) ... ok\ntest_no_forced_winner_without_evidence (test_small_room30_competition.CompetitionTests.test_no_forced_winner_without_evidence) ... ok\ntest_no_gt_input_and_independent_conditions (test_small_room30_competition.CompetitionTests.test_no_gt_input_and_independent_conditions) ... ok\ntest_numeric_checkpoint_roundtrip_without_pickle (test_small_room30_competition.CompetitionTests.test_numeric_checkpoint_roundtrip_without_pickle) ... ok\ntest_numpy_torch_choice_equivalence (test_small_room30_competition.CompetitionTests.test_numpy_torch_choice_equivalence) ... ok\ntest_oracle_votes_localize_and_match_swapped_slots (test_small_room30_competition.CompetitionTests.test_oracle_votes_localize_and_match_swapped_slots) ... ok\ntest_point_permutation_equivariance (test_small_room30_competition.CompetitionTests.test_point_permutation_equivariance) ... ok\ntest_teacher_frozen_and_not_a_selection_feature (test_small_room30_competition.CompetitionTests.test_teacher_frozen_and_not_a_selection_feature) ... ok\ntest_train_export_reload_and_g2_not_optimized (test_small_room30_competition.CompetitionTests.test_train_export_reload_and_g2_not_optimized) ... ok\ntest_two_experts_routers_receive_map_gradient (test_small_room30_competition.CompetitionTests.test_two_experts_routers_receive_map_gradient) ... ok\ntest_viewer_rejects_old_or_tampered_formula (test_small_room30_competition.CompetitionTests.test_viewer_rejects_old_or_tampered_formula) ... ok\ntest_wrong_confident_choice_and_floor_collapse_fail (test_small_room30_competition.CompetitionTests.test_wrong_confident_choice_and_floor_collapse_fail) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 0.432s\n\nOK\n",
+    "test_small_room30_competition_recovery": "[RECOVER] Existing trained weights; CPU single-thread evaluation only; optimizer steps=0\n[AUDIT] Original saved pair failures: slots=4, branches=0; see original_gpu_pair_audit.json\n[PASS] CPU repeated identical inputs stable. Evaluating all 90 conditions with original checks.\n[COMPETITION EVAL] 4/4\n[NOT AUTO-APPROVED] 4/4 diagnostic failures; 0 missed expected switches.\n[DONE \u2014 REVIEW REQUIRED] /private/var/folders/9h/y8x0xtdd73n6zqw1kh6q65y00000gn/T/tmpnhgelfdp/recovered/summary.json\ntest_changed_weights_rejected (test_small_room30_competition_recovery.RecoveryTests.test_changed_weights_rejected) ... ok\ntest_cpu_repeat_detects_real_instability (test_small_room30_competition_recovery.RecoveryTests.test_cpu_repeat_detects_real_instability) ... ok\ntest_different_failure_not_silently_recovered (test_small_room30_competition_recovery.RecoveryTests.test_different_failure_not_silently_recovered) ... ok\ntest_full_recovery_main_no_optimizer_no_source_writes (test_small_room30_competition_recovery.RecoveryTests.test_full_recovery_main_no_optimizer_no_source_writes) ... ok\ntest_incomplete_training_rejected (test_small_room30_competition_recovery.RecoveryTests.test_incomplete_training_rejected) ... ok\ntest_saved_pair_audit_reports_difference_and_swap (test_small_room30_competition_recovery.RecoveryTests.test_saved_pair_audit_reports_difference_and_swap) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.158s\n\nOK\n"
+  },
+  "annotation_audit": {
+    "scenes": 30,
+    "train_records": 300,
+    "eval_records": 150,
+    "legacy_labels_unchanged": true,
+    "added_conditions": 60,
+    "target_switch_scenes": [
+      "small_room_0101",
+      "small_room_0102",
+      "small_room_0103",
+      "small_room_0104",
+      "small_room_0105",
+      "small_room_0301",
+      "small_room_0302",
+      "small_room_0303",
+      "small_room_0304",
+      "small_room_0305",
+      "small_room_0401",
+      "small_room_0402",
+      "small_room_0403",
+      "small_room_0404",
+      "small_room_0405",
+      "small_room_0501",
+      "small_room_0502",
+      "small_room_0503",
+      "small_room_0504",
+      "small_room_0505",
+      "small_room_0601",
+      "small_room_0602",
+      "small_room_0603",
+      "small_room_0604",
+      "small_room_0605"
+    ],
+    "target_no_switch_scenes": [
+      "small_room_0201",
+      "small_room_0202",
+      "small_room_0203",
+      "small_room_0204",
+      "small_room_0205"
+    ],
+    "rows": [
+      {
+        "scene": "small_room_0101",
+        "history": "small_room_0101__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9987622499465942,
+          0.0012377682141959667
+        ],
+        "selection": [
+          0.9522375464439392,
+          0.04776252061128616
+        ],
+        "floor_support_points": 2255
+      },
+      {
+        "scene": "small_room_0101",
+        "history": "small_room_0101__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.051605284214019775,
+          0.9483947157859802
+        ],
+        "selection": [
+          0.06354407221078873,
+          0.9364559054374695
+        ],
+        "floor_support_points": 2255
+      },
+      {
+        "scene": "small_room_0102",
+        "history": "small_room_0102__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9249005913734436,
+          0.07509943097829819
+        ],
+        "selection": [
+          0.9275333881378174,
+          0.07246661931276321
+        ],
+        "floor_support_points": 2238
+      },
+      {
+        "scene": "small_room_0102",
+        "history": "small_room_0102__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0009184766095131636,
+          0.9990814924240112
+        ],
+        "selection": [
+          0.0476754792034626,
+          0.9523245692253113
+        ],
+        "floor_support_points": 2238
+      },
+      {
+        "scene": "small_room_0103",
+        "history": "small_room_0103__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9936622381210327,
+          0.00633775070309639
+        ],
+        "selection": [
+          0.9508262872695923,
+          0.049173641949892044
+        ],
+        "floor_support_points": 2130
+      },
+      {
+        "scene": "small_room_0103",
+        "history": "small_room_0103__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.34872809052467346,
+          0.6512719392776489
+        ],
+        "selection": [
+          0.28748467564582825,
+          0.7125152945518494
+        ],
+        "floor_support_points": 2130
+      },
+      {
+        "scene": "small_room_0104",
+        "history": "small_room_0104__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9895311594009399,
+          0.010468773543834686
+        ],
+        "selection": [
+          0.9496544003486633,
+          0.050345610827207565
+        ],
+        "floor_support_points": 2224
+      },
+      {
+        "scene": "small_room_0104",
+        "history": "small_room_0104__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.00019112946756649762,
+          0.9998088479042053
+        ],
+        "selection": [
+          0.047477688640356064,
+          0.952522337436676
+        ],
+        "floor_support_points": 2224
+      },
+      {
+        "scene": "small_room_0105",
+        "history": "small_room_0105__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9076127409934998,
+          0.09238726645708084
+        ],
+        "selection": [
+          0.9202447533607483,
+          0.0797552689909935
+        ],
+        "floor_support_points": 2092
+      },
+      {
+        "scene": "small_room_0105",
+        "history": "small_room_0105__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.02382870577275753,
+          0.9761713147163391
+        ],
+        "selection": [
+          0.054319191724061966,
+          0.9456808567047119
+        ],
+        "floor_support_points": 2092
+      },
+      {
+        "scene": "small_room_0201",
+        "history": "small_room_0201__bed__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0007590483292005956,
+          0.9992409944534302
+        ],
+        "selection": [
+          0.047632042318582535,
+          0.952367901802063
+        ],
+        "floor_support_points": 1787
+      },
+      {
+        "scene": "small_room_0201",
+        "history": "small_room_0201__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.007524103857576847,
+          0.9924759268760681
+        ],
+        "selection": [
+          0.04950752854347229,
+          0.9504924416542053
+        ],
+        "floor_support_points": 1787
+      },
+      {
+        "scene": "small_room_0202",
+        "history": "small_room_0202__bed__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0007590483292005956,
+          0.9992409944534302
+        ],
+        "selection": [
+          0.047632042318582535,
+          0.952367901802063
+        ],
+        "floor_support_points": 1787
+      },
+      {
+        "scene": "small_room_0202",
+        "history": "small_room_0202__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.007524103857576847,
+          0.9924759268760681
+        ],
+        "selection": [
+          0.04950752854347229,
+          0.9504924416542053
+        ],
+        "floor_support_points": 1787
+      },
+      {
+        "scene": "small_room_0203",
+        "history": "small_room_0203__bed__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.2485019564628601,
+          0.7514980435371399
+        ],
+        "selection": [
+          0.18108876049518585,
+          0.8189111948013306
+        ],
+        "floor_support_points": 1995
+      },
+      {
+        "scene": "small_room_0203",
+        "history": "small_room_0203__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0003476607089396566,
+          0.9996523857116699
+        ],
+        "selection": [
+          0.04752020910382271,
+          0.9524798393249512
+        ],
+        "floor_support_points": 1995
+      },
+      {
+        "scene": "small_room_0204",
+        "history": "small_room_0204__bed__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0008416480850428343,
+          0.9991583824157715
+        ],
+        "selection": [
+          0.047654543071985245,
+          0.9523454308509827
+        ],
+        "floor_support_points": 1691
+      },
+      {
+        "scene": "small_room_0204",
+        "history": "small_room_0204__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.005520783830434084,
+          0.9944791793823242
+        ],
+        "selection": [
+          0.04894496127963066,
+          0.9510550498962402
+        ],
+        "floor_support_points": 1691
+      },
+      {
+        "scene": "small_room_0205",
+        "history": "small_room_0205__bed__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.02352769672870636,
+          0.9764723181724548
+        ],
+        "selection": [
+          0.054226431995630264,
+          0.9457736015319824
+        ],
+        "floor_support_points": 1480
+      },
+      {
+        "scene": "small_room_0205",
+        "history": "small_room_0205__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.19063109159469604,
+          0.809368908405304
+        ],
+        "selection": [
+          0.13514505326747894,
+          0.8648549914360046
+        ],
+        "floor_support_points": 1480
+      },
+      {
+        "scene": "small_room_0301",
+        "history": "small_room_0301__high_chair__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9991669654846191,
+          0.0008330437121912837
+        ],
+        "selection": [
+          0.9523478150367737,
+          0.04765220731496811
+        ],
+        "floor_support_points": 2256
+      },
+      {
+        "scene": "small_room_0301",
+        "history": "small_room_0301__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.03107502870261669,
+          0.9689249396324158
+        ],
+        "selection": [
+          0.056596361100673676,
+          0.9434036016464233
+        ],
+        "floor_support_points": 2256
+      },
+      {
+        "scene": "small_room_0302",
+        "history": "small_room_0302__high_chair__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9760553240776062,
+          0.023944713175296783
+        ],
+        "selection": [
+          0.9456450343132019,
+          0.0543549619615078
+        ],
+        "floor_support_points": 2230
+      },
+      {
+        "scene": "small_room_0302",
+        "history": "small_room_0302__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0017284982604905963,
+          0.9982714653015137
+        ],
+        "selection": [
+          0.04789663851261139,
+          0.9521034359931946
+        ],
+        "floor_support_points": 2230
+      },
+      {
+        "scene": "small_room_0303",
+        "history": "small_room_0303__high_chair__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.98703533411026,
+          0.012964692898094654
+        ],
+        "selection": [
+          0.9489336013793945,
+          0.05106642097234726
+        ],
+        "floor_support_points": 2112
+      },
+      {
+        "scene": "small_room_0303",
+        "history": "small_room_0303__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.006314451340585947,
+          0.9936855435371399
+        ],
+        "selection": [
+          0.04916713386774063,
+          0.9508329033851624
+        ],
+        "floor_support_points": 2112
+      },
+      {
+        "scene": "small_room_0304",
+        "history": "small_room_0304__high_chair__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9803240895271301,
+          0.01967582479119301
+        ],
+        "selection": [
+          0.9469466209411621,
+          0.0530533529818058
+        ],
+        "floor_support_points": 2218
+      },
+      {
+        "scene": "small_room_0304",
+        "history": "small_room_0304__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0008410788723267615,
+          0.9991589784622192
+        ],
+        "selection": [
+          0.047654375433921814,
+          0.9523456692695618
+        ],
+        "floor_support_points": 2218
+      },
+      {
+        "scene": "small_room_0305",
+        "history": "small_room_0305__high_chair__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.7045199871063232,
+          0.29547998309135437
+        ],
+        "selection": [
+          0.7733142375946045,
+          0.22668582201004028
+        ],
+        "floor_support_points": 2040
+      },
+      {
+        "scene": "small_room_0305",
+        "history": "small_room_0305__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.010288693942129612,
+          0.9897112846374512
+        ],
+        "selection": [
+          0.050293974578380585,
+          0.9497060179710388
+        ],
+        "floor_support_points": 2040
+      },
+      {
+        "scene": "small_room_0401",
+        "history": "small_room_0401__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9699280261993408,
+          0.030071936547756195
+        ],
+        "selection": [
+          0.9437240958213806,
+          0.05627583712339401
+        ],
+        "floor_support_points": 2165
+      },
+      {
+        "scene": "small_room_0401",
+        "history": "small_room_0401__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.021219436079263687,
+          0.9787805080413818
+        ],
+        "selection": [
+          0.053520575165748596,
+          0.9464793801307678
+        ],
+        "floor_support_points": 2165
+      },
+      {
+        "scene": "small_room_0402",
+        "history": "small_room_0402__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9699280261993408,
+          0.030071936547756195
+        ],
+        "selection": [
+          0.9437240958213806,
+          0.05627583712339401
+        ],
+        "floor_support_points": 2165
+      },
+      {
+        "scene": "small_room_0402",
+        "history": "small_room_0402__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.021219436079263687,
+          0.9787805080413818
+        ],
+        "selection": [
+          0.053520575165748596,
+          0.9464793801307678
+        ],
+        "floor_support_points": 2165
+      },
+      {
+        "scene": "small_room_0403",
+        "history": "small_room_0403__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9783174991607666,
+          0.02168252505362034
+        ],
+        "selection": [
+          0.946338415145874,
+          0.0536615252494812
+        ],
+        "floor_support_points": 2159
+      },
+      {
+        "scene": "small_room_0403",
+        "history": "small_room_0403__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.001659546629525721,
+          0.9983404874801636
+        ],
+        "selection": [
+          0.0478777214884758,
+          0.9521223306655884
+        ],
+        "floor_support_points": 2159
+      },
+      {
+        "scene": "small_room_0404",
+        "history": "small_room_0404__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9967672824859619,
+          0.0032327305525541306
+        ],
+        "selection": [
+          0.951690137386322,
+          0.04830988869071007
+        ],
+        "floor_support_points": 2196
+      },
+      {
+        "scene": "small_room_0404",
+        "history": "small_room_0404__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.012089122086763382,
+          0.9879108667373657
+        ],
+        "selection": [
+          0.05081242695450783,
+          0.9491875171661377
+        ],
+        "floor_support_points": 2196
+      },
+      {
+        "scene": "small_room_0405",
+        "history": "small_room_0405__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.8998693227767944,
+          0.10013070702552795
+        ],
+        "selection": [
+          0.9167675375938416,
+          0.08323248475790024
+        ],
+        "floor_support_points": 2108
+      },
+      {
+        "scene": "small_room_0405",
+        "history": "small_room_0405__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.025138506665825844,
+          0.9748615026473999
+        ],
+        "selection": [
+          0.05472427234053612,
+          0.9452756643295288
+        ],
+        "floor_support_points": 2108
+      },
+      {
+        "scene": "small_room_0501",
+        "history": "small_room_0501__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9991119503974915,
+          0.0008880782406777143
+        ],
+        "selection": [
+          0.9523327946662903,
+          0.047667182981967926
+        ],
+        "floor_support_points": 1486
+      },
+      {
+        "scene": "small_room_0501",
+        "history": "small_room_0501__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.04725377634167671,
+          0.9527462720870972
+        ],
+        "selection": [
+          0.06200806051492691,
+          0.9379919171333313
+        ],
+        "floor_support_points": 1486
+      },
+      {
+        "scene": "small_room_0502",
+        "history": "small_room_0502__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9760552048683167,
+          0.023944823071360588
+        ],
+        "selection": [
+          0.9456450343132019,
+          0.0543549619615078
+        ],
+        "floor_support_points": 1446
+      },
+      {
+        "scene": "small_room_0502",
+        "history": "small_room_0502__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.01679784059524536,
+          0.9832021594047546
+        ],
+        "selection": [
+          0.05219244211912155,
+          0.9478076100349426
+        ],
+        "floor_support_points": 1446
+      },
+      {
+        "scene": "small_room_0503",
+        "history": "small_room_0503__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9517690539360046,
+          0.048230960965156555
+        ],
+        "selection": [
+          0.9376501441001892,
+          0.06234987825155258
+        ],
+        "floor_support_points": 1412
+      },
+      {
+        "scene": "small_room_0503",
+        "history": "small_room_0503__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.007816369645297527,
+          0.9921836256980896
+        ],
+        "selection": [
+          0.049590103328228,
+          0.9504099488258362
+        ],
+        "floor_support_points": 1412
+      },
+      {
+        "scene": "small_room_0504",
+        "history": "small_room_0504__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.99958735704422,
+          0.00041264938772656024
+        ],
+        "selection": [
+          0.9524621963500977,
+          0.047537848353385925
+        ],
+        "floor_support_points": 1465
+      },
+      {
+        "scene": "small_room_0504",
+        "history": "small_room_0504__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.005911794491112232,
+          0.9940881729125977
+        ],
+        "selection": [
+          0.049054279923439026,
+          0.9509457349777222
+        ],
+        "floor_support_points": 1465
+      },
+      {
+        "scene": "small_room_0505",
+        "history": "small_room_0505__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9953309893608093,
+          0.004668996669352055
+        ],
+        "selection": [
+          0.9512923359870911,
+          0.04870764911174774
+        ],
+        "floor_support_points": 1492
+      },
+      {
+        "scene": "small_room_0505",
+        "history": "small_room_0505__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.04164513945579529,
+          0.9583548903465271
+        ],
+        "selection": [
+          0.06007933244109154,
+          0.9399207234382629
+        ],
+        "floor_support_points": 1492
+      },
+      {
+        "scene": "small_room_0601",
+        "history": "small_room_0601__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9991452693939209,
+          0.000854718906339258
+        ],
+        "selection": [
+          0.9523418545722961,
+          0.04765808954834938
+        ],
+        "floor_support_points": 1488
+      },
+      {
+        "scene": "small_room_0601",
+        "history": "small_room_0601__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.01679784059524536,
+          0.9832021594047546
+        ],
+        "selection": [
+          0.05219244211912155,
+          0.9478076100349426
+        ],
+        "floor_support_points": 1488
+      },
+      {
+        "scene": "small_room_0602",
+        "history": "small_room_0602__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9760552048683167,
+          0.023944823071360588
+        ],
+        "selection": [
+          0.9456450343132019,
+          0.0543549619615078
+        ],
+        "floor_support_points": 1468
+      },
+      {
+        "scene": "small_room_0602",
+        "history": "small_room_0602__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.0007107725832611322,
+          0.9992891550064087
+        ],
+        "selection": [
+          0.04761889576911926,
+          0.9523810744285583
+        ],
+        "floor_support_points": 1468
+      },
+      {
+        "scene": "small_room_0603",
+        "history": "small_room_0603__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9999035596847534,
+          9.638912160880864e-05
+        ],
+        "selection": [
+          0.9525479674339294,
+          0.04745203256607056
+        ],
+        "floor_support_points": 1412
+      },
+      {
+        "scene": "small_room_0603",
+        "history": "small_room_0603__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.00233619031496346,
+          0.9976638555526733
+        ],
+        "selection": [
+          0.04806312918663025,
+          0.9519369006156921
+        ],
+        "floor_support_points": 1412
+      },
+      {
+        "scene": "small_room_0604",
+        "history": "small_room_0604__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9797024130821228,
+          0.020297572016716003
+        ],
+        "selection": [
+          0.9467589259147644,
+          0.053241074085235596
+        ],
+        "floor_support_points": 1451
+      },
+      {
+        "scene": "small_room_0604",
+        "history": "small_room_0604__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.00026197967235930264,
+          0.9997380375862122
+        ],
+        "selection": [
+          0.04749692603945732,
+          0.9525030851364136
+        ],
+        "floor_support_points": 1451
+      },
+      {
+        "scene": "small_room_0605",
+        "history": "small_room_0605__100__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.9990823268890381,
+          0.0009177226456813514
+        ],
+        "selection": [
+          0.9523247480392456,
+          0.0476752370595932
+        ],
+        "floor_support_points": 1429
+      },
+      {
+        "scene": "small_room_0605",
+        "history": "small_room_0605__110__sit",
+        "relation": [
+          1.0,
+          1.0
+        ],
+        "history_score": [
+          0.04037415608763695,
+          0.9596258997917175
+        ],
+        "selection": [
+          0.05965014919638634,
+          0.940349817276001
+        ],
+        "floor_support_points": 1429
+      }
+    ],
+    "original_teacher_connector_unchanged": true,
+    "constructor_probe": "Actual record logic + geometry/history with explicit synthetic Teacher fixture; not a production preflight"
+  },
+  "full_shape": {
+    "batch": 8,
+    "points": 8192,
+    "channels": 6,
+    "width": 64,
+    "finite_connected_gradients": true,
+    "optimizer_steps": 0,
+    "actual_geometry_history": true,
+    "teacher": "Synthetic ones",
+    "anywhere_text_feature": "Synthetic shape fixture only; not exported or used by training package"
+  },
+  "viewer": {
+    "verified_map_conditions": 150,
+    "scenes_with_anywhere": 30,
+    "viser_layouts": 5,
+    "purpose_and_history_controls": "PASS",
+    "expected_switch_notice": "PASS",
+    "note": "Synthetic maps for reader/UI runtime QA, not actual model results or browser screenshot review"
+  },
+  "preserved": {
+    "small_room30_student_competition_v1.zip": "378dc2d2b1eee545e2b68533449e747a049fea9038a95807969c05c9750cb750",
+    "small_room30_competition_eval_recovery01.zip": "6d5835a6f176b56cbe3d52f627ed65172d13c42444d4dd8514f5f300e083571d"
+  },
+  "actual_clip_encoding_tested_locally": false,
+  "actual_user_checkpoint_available": false,
+  "full_teacher_cache_available": false,
+  "production_training_performed": false,
+  "python38_syntax": true,
+  "bash_syntax": true,
+  "clip_api_reference": "https://github.com/openai/CLIP/blob/main/clip/clip.py",
+  "source_sha256": {
+    "SMALL_ROOM30_ANYWHERE.md": "50b4731e46030c973718c9088dd04b08daf4a48f09fb9f2a2dc2abe0919dc23e",
+    "prepare/recover_small_room30_competition_eval.py": "8237f645061ddbfe53164a18014cfbc761c945c3d8cf5f7841fccd7576104dce",
+    "prepare/relation_aware_moe_v2_contract.py": "0987a7ece87fe12f0153c4edf629f8a2562cb2a0a051f4b1cae6de696f800da6",
+    "prepare/small_room30_adm_dataset.py": "b1e08bccd02a8d6b3f0d84ca4cdb94c33686dc227db7b9eb02e862784fb46066",
+    "prepare/small_room30_anywhere_data.py": "18753b4b6116639f31e85834a6c4c944877655821a3c625368ad5f37716733e5",
+    "prepare/small_room30_anywhere_review.py": "e18109f661acefd6aa48d8e0464a0b58d19e60d0db22bd1a338647d428e35d3a",
+    "prepare/small_room30_anywhere_text.py": "a40483e0b3dd9ed003b6e7323e9407ad2a356b11cd85369b4209f9cdb82c25bb",
+    "prepare/small_room30_competition_data.py": "42638a4d5b84fc80ce9d498461fbecbef1a64989435eb9806ebc54587b2791b8",
+    "prepare/small_room30_competition_model.py": "f25f7df5cee65605b147f72cbf186120f8255fc39ca794247a87ab3213b85a2d",
+    "prepare/small_room30_competition_review.py": "1312a9b9202dc09dbb96bef2a94fcdc56f72409fddac546733845559287606b4",
+    "prepare/small_room30_evaluation_common.py": "1c8f15db1f09cc0e926676ecf994dc1249ec3f13ae40a5249572f2a8abdbea8a",
+    "prepare/small_room30_student_data.py": "bc8d8b63afe2b57b2f4dd0989f05a99364b60f8f97220a3737b06012c3a4b8f5",
+    "prepare/small_room30_student_v2_data.py": "a16e6e2dee17b5f426e766f4b30ce8cfd6e2a6abba06fcdb4c621abc4a2c8933",
+    "prepare/small_room30_student_v2_text_cache.json": "cce3a0a45a0e4a75d7e20361af3fef0217078b4180b01af8f10d92c9902cda71",
+    "prepare/small_room30_weight_student.py": "aaba92770bf513fe019ebc881383dfe0d009de58e376885ada884e65bfc7a1d2",
+    "prepare/small_room30_weight_student_v2.py": "0e405e2032b4005a20a3a6fdd1a0515db886a6b58f9d739c888e0442d75d0825",
+    "prepare/test_small_room30_anywhere.py": "f879af328d6c636999442977c7811af6c028b69340077e59a49ea166f8f6b2f8",
+    "prepare/test_small_room30_competition.py": "95966435c052be65fdf9c171c1639557c0309ab79be4be229ba2226c0f71e1c1",
+    "prepare/test_small_room30_competition_recovery.py": "2bcbbe9dbd1cacf05d433ee8fb431932cfb0a1092558df61d6886c3ea4d87851",
+    "prepare/test_small_room30_student_v2.py": "fceb32478fd23fadb39fefdc80eb01fc78d2791047055e6b08cb0167e4e8abaa",
+    "prepare/train_small_room30_anywhere.py": "4fd9c708cd0840ca4e0f96251b0e9b2b1cf2137d1a4d22362b65401f742f5ec9",
+    "prepare/train_small_room30_competition.py": "09374253200b69e2a1cfa0843a5cc5b1724a8381362c88b194ff998edc67dd75",
+    "prepare/train_small_room30_student_v2.py": "c5d96fe73fd0999e544b4f7ae55d8f372073f15fe019b40a01cad10cb467ec1e",
+    "prepare/train_small_room30_student_v2_compat.py": "64173d963646238dd1c9115a2109acef08380b1f8ce9b80358f62f4259afdca0",
+    "prepare/view_small_room30_anywhere.py": "68c251316e4fe2911fd436e9623d9aedbfd60a3b3dfb78ff168144309c0ff8fd",
+    "prepare/view_small_room30_evaluation.py": "8b97dc93867870df8f86b32d72025fbed05194057ffc8f0d1f401926a9d2ae9f",
+    "scripts/small_room30/student_anywhere.sh": "0a5f586a8ee493cab12d4884b71b73cb5348e77222305a23a1561e083e2f0c49"
+  }
+}

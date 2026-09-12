@@ -28,7 +28,7 @@ def collect(run_path,ready_path,destination):
     files.update(REPO/n for n in FILES)
     files.update((REPO/'scripts/small_room30').glob('*targeted_v5.sh'))
     files.add(REPO/'scripts/small_room30/view_candidates_v5.sh')
-    files.add(REPO/'SMALL_ROOM30_TARGETED_V5.md')
+    files.add(REPO/'docs/guides/teacher-training.md')
     with zipfile.ZipFile(destination,'x',compression=zipfile.ZIP_DEFLATED) as z:
         for p in sorted(files):z.write(p,str(p.relative_to(REPO)))
     with zipfile.ZipFile(destination) as z:

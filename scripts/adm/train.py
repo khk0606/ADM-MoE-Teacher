@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path as _RepositoryPath
+sys.path.insert(0, str(_RepositoryPath(__file__).resolve().parents[2]))
+
 import hydra
 import torch
 import random
@@ -50,7 +54,7 @@ def train(cfg: DictConfig) -> None:
         gpu=cfg.gpu,
     ).run_loop()
 
-@hydra.main(version_base=None, config_path="./configs", config_name="default")
+@hydra.main(version_base=None, config_path="../../configs", config_name="default")
 def main(cfg: DictConfig) -> None:
     """ Main function
 

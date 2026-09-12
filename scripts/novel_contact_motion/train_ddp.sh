@@ -6,7 +6,7 @@ then
     PORT=29500
 fi
 
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nnodes=1 --nproc_per_node=4 --rdzv_backend=c10d --rdzv_endpoint=localhost:${PORT} train_ddp.py \
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nnodes=1 --nproc_per_node=4 --rdzv_backend=c10d --rdzv_endpoint=localhost:${PORT} scripts/adm/train_ddp.py \
             hydra/job_logging=none hydra/hydra_logging=none \
             exp_name=${EXP_NAME} \
             output_dir=outputs \

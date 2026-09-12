@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path as _RepositoryPath
+sys.path.insert(0, str(_RepositoryPath(__file__).resolve().parents[2]))
+
 import os
 import hydra
 import torch
@@ -14,7 +18,7 @@ from utils.io import mkdir_if_not_exists, Board
 from utils.training import TrainLoop
 from utils.misc import compute_repr_dimesion
 
-@hydra.main(version_base=None, config_path="./configs", config_name="default")
+@hydra.main(version_base=None, config_path="../../configs", config_name="default")
 def main(cfg: DictConfig) -> None:
     """ Main function
 

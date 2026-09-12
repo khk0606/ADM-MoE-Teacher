@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path as _RepositoryPath
+sys.path.insert(0, str(_RepositoryPath(__file__).resolve().parents[2]))
+
 import os, glob, hydra
 from loguru import logger
 from omegaconf import DictConfig, OmegaConf
@@ -137,7 +141,7 @@ def test(cfg: DictConfig) -> None:
     evaluator.evaluate(sample_list, k_samples_list, test_dir, test_dataloader, device=device)
     evaluator.report(test_dir)
 
-@hydra.main(version_base=None, config_path="./configs", config_name="default")
+@hydra.main(version_base=None, config_path="../../configs", config_name="default")
 def main(cfg: DictConfig) -> None:
     """ Main function
 

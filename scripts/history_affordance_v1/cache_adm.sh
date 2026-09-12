@@ -16,7 +16,7 @@ if [[ -z "${CHECKPOINT}" || ! -f "${CHECKPOINT}" ]]; then
   exit 1
 fi
 
-python test.py hydra/job_logging=none hydra/hydra_logging=none \
+python scripts/adm/test.py hydra/job_logging=none hydra/hydra_logging=none \
   exp_dir="${EXP_DIR}" \
   seed=20260807 \
   output_dir=outputs \

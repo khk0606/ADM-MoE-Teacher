@@ -10,6 +10,11 @@ writes scalar-colored PLY files for CloudCompare, MeshLab, or Open3D.
 
 from __future__ import annotations
 
+import sys
+from pathlib import Path as _RepositoryPath
+sys.path.insert(0, str(_RepositoryPath(__file__).resolve().parents[2]))
+
+
 import argparse
 import hashlib
 import json

@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path as _RepositoryPath
+sys.path.insert(0, str(_RepositoryPath(__file__).resolve().parents[2]))
+
 import os
 os.environ["PYOPENGL_PLATFORM"] = "egl"
 import argparse

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-sha256sum -c SMALL_ROOM30_ANYWHERE_SHA256SUMS.txt > /dev/null
+sha256sum -c docs/provenance/small_room30/layout.sha256 > /dev/null
 mode="${1:-preflight}"
 if [ "$#" -gt 0 ]; then shift; fi
 case "$mode" in

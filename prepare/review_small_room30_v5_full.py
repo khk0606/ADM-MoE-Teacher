@@ -59,7 +59,7 @@ def collect(summary,training_path,destination):
     log=root.with_name(root.name+'.console.log')
     if log.exists():files.add(log)
     files.update(REPO/n for n in FILES)
-    files.add(REPO/'SMALL_ROOM30_V5_FULL_EVALUATION.md')
+    files.add(REPO/'docs/guides/teacher-evaluation.md')
     files.update((REPO/'scripts/small_room30').glob('*v5_full.sh'))
     if any(p.is_symlink() or REPO not in p.resolve().parents for p in files):raise ValueError('Unsafe evidence path')
     if Path(destination).exists():

@@ -82,14 +82,36 @@ Do not edit the original summary's approval fields or hashes. Human review is re
 
 ### 6. Training source and prerequisites
 
-- [Student procedure](SMALL_ROOM30_ANYWHERE.md)
-- [Teacher saved1578 full evaluation](SMALL_ROOM30_V5_FULL_EVALUATION.md)
+- [Student procedure](docs/guides/student-anywhere.md)
+- [Teacher saved1578 full evaluation](docs/guides/teacher-evaluation.md)
 - [Data, checkpoints and reproduction limitations](docs/DATA_AND_CHECKPOINTS.md)
 - [Repository scope](docs/REPOSITORY_SCOPE.md)
 
 The Student procedure fine-tunes a completed competition Student; it is not from-scratch training. Current source requires historical initialization assets and exact dataset bindings. **A fresh clone alone cannot reproduce the reported maps.** Do not substitute old Teacher-v10.2 release assets for the SmallRoom30 runs.
 
 The original ADM implementation, dependency files and upstream license remain in the repository. Follow the existing compatible environment; this update does not introduce a validated fresh-install environment.
+
+### Repository layout
+
+```text
+docs/
+  guides/          # Teacher / Student execution instructions
+  results/         # Accepted qualitative results, figures and screenshots
+  provenance/      # Original package tests and source checksums
+scripts/
+  small_room30/    # Current Student and Teacher launchers
+  adm/             # Upstream ADM training, testing and visualization
+prepare/           # Shared experiment implementation; paths kept for run integrity
+configs/           # Model configuration and environment records
+datasets/          # Dataset loaders
+models/            # Model components
+diffusion/         # Diffusion implementation
+tests/             # Repository organization and standalone tool tests
+```
+
+Run upstream ADM commands from the repository root, for example
+`python scripts/adm/train.py ...` or `python scripts/adm/test.py ...`.
+The current Student viewer command above is unchanged.
 
 ### License and attribution
 

@@ -1,6 +1,6 @@
 EXP_NAME=$1
 
-python train.py hydra/job_logging=none hydra/hydra_logging=none \
+python scripts/adm/train.py hydra/job_logging=none hydra/hydra_logging=none \
             exp_name=${EXP_NAME} \
             output_dir=outputs \
             platform=TensorBoard \

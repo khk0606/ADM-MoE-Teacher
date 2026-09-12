@@ -1,5 +1,11 @@
 # Source publication checks — 2026-09-12
 
+## Repository-layout follow-up
+
+Execution guides and original package provenance now live under `docs/guides/` and `docs/provenance/small_room30/`. Upstream ADM entry points moved to `scripts/adm/`; launcher references and Hydra config paths were adjusted. Four dependency-free layout tests pass, including exact preservation of the 25 original sealed `prepare/` source/cache digests. The current launcher's layout manifest checks all 28 files. This does not replace model runtime testing.
+
+## Initial publication checks
+
 - Parsed all 439 Python source files in this publication tree successfully.
 - Checked shell scripts with `bash -n`.
 - Verified all 28 entries in `SMALL_ROOM30_ANYWHERE_SHA256SUMS.txt` without modifying their bound source.

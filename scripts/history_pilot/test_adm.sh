@@ -11,7 +11,7 @@ STATS_FILE="$(realpath "${STATS_FILE}")"
 
 python prepare/history_pilot_adm_input.py --pilot-dir "${PILOT_DIR}"
 
-python test.py hydra/job_logging=none hydra/hydra_logging=none \
+python scripts/adm/test.py hydra/job_logging=none hydra/hydra_logging=none \
   exp_dir="${EXP_DIR}" \
   seed=20260807 \
   output_dir=outputs \
